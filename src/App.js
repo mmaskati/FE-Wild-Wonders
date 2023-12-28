@@ -15,6 +15,9 @@ import Signin from './components/user/Signin';
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faUser, faPencil, faTrash, faUserPlus, faStar } from "@fortawesome/free-solid-svg-icons";
 
+//Mazen - adding Scientist View
+import Dashboard from './components/scientist/Dashboard';
+
 library.add(faUser, faPencil, faTrash, faUserPlus, faStar);
 
 function App() {
@@ -22,16 +25,21 @@ function App() {
 //declare states
 const [isAuth, setIsAuth] = useState(false);
 const [user, setUser] = useState({});
+const [userData, setuserData] = useState({});
 
 //we need to trigger the user/token check if the user is logged in everytime a page is refreshed even
 useEffect(() => {
   const user = getUser();
-  console.log(user);///////////////////////////////////////////////////////////////////////////////////////////
+  console.log(user);
 
   //if there is a user then keep everything in check
   if(user){
     setIsAuth(true);
     setUser(true);
+
+//call user fetch data
+  fetchUserData(user.id);
+
   } else {
     //else set to false/null and remove token from local storage
     localStorage.removeItem("token");
@@ -39,7 +47,22 @@ useEffect(() => {
     setUser(null);
   }
 
+
+
 }, []);
+
+//MAZEN - API GET USER PROFILE
+const fetchUserData = (id) => {
+  // console.log(id);
+  Axios.post("user/fetch", { userID: id })
+  .then((response) => {
+    setuserData(response.data.userDetails);
+    // console.log(response);
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+}
 
 const registerHandler = (user) => {
   Axios.post("auth/signup", user)
@@ -98,6 +121,19 @@ const loginHandler = (credentials) => {
   })
 }
 
+//Mazen - callback API for Scientist Dashboard
+// const scientistDashboard = () => {
+//   Axios.post("scientist/dashboard")
+//   .then((response) => {
+//     console.log(response);
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   })
+// }
+
+// console.log(userData);
+
 return (
 <>
 <nav>
@@ -115,7 +151,7 @@ return (
           
           <>
           <Link to="/" className="btn btn-outline-light me-2">Home</Link>
-          <Link to="/logout" className="btn btn-outline-danger" onClick={onLogoutHandler}>Logout</Link>
+          <Link to="/logout" className="btn btn-outline-danger" onClick={onLogoutHandler}>Logout</Link> 
           </>
 
           ) : (
@@ -142,9 +178,9 @@ return (
     
 <main>
     <Routes>
-      <Route path="/" element={ isAuth ? "You are logged in." : <Signin login={loginHandler}></Signin>}></Route>
+      <Route path="/" element={ isAuth ? <Dashboard userData={userData} /> : <Signin login={loginHandler}></Signin>}></Route>
       <Route path="/signup" element={<Signup register={registerHandler}></Signup>}></Route>
-      <Route path="/signin" element={ isAuth ? "You are logged in." : <Signin login={loginHandler}></Signin>}></Route>
+      <Route path="/signin" element={ isAuth ? <Dashboard userData={userData} /> : <Signin login={loginHandler}></Signin>}></Route>
     </Routes>
 </main>
   
