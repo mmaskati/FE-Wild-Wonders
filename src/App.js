@@ -12,6 +12,11 @@ import { jwtDecode } from 'jwt-decode';
 
 import Signup from './components/user/Signup';
 import Signin from './components/user/Signin';
+
+
+//SightseerForm - Wael
+import SightseerForm from "./components/sightseer/SightseerForm";
+
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faUser, faPencil, faTrash, faUserPlus, faStar } from "@fortawesome/free-solid-svg-icons";
 
@@ -149,6 +154,10 @@ return (
 </main>
   
 </div>
+      
+    <div>
+      <SightseerForm />
+      </div>
 
 <Footer />
 
