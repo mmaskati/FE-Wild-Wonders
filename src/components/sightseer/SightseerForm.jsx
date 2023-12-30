@@ -47,7 +47,9 @@ const SightseerForm = () => {
   };
 
   return (
-    <div className="container">
+<>
+<div className="container mt-5">
+
       <div className="row g-5">
         <form onSubmit={handleSubmit} className="col-md-6">
           {/* Form Fields */}
@@ -178,7 +180,7 @@ const SightseerForm = () => {
           </div>
 
           <div className="mb-3">
-            <label className="form-label">Preview Image:</label>
+            <label className="form-label" htmlFor="image">Preview Image:</label>
             {formData.image && (
               <img
                 src={URL.createObjectURL(formData.image)}
@@ -195,7 +197,9 @@ const SightseerForm = () => {
           </div>
         </div></form>
       </div>
-    </div> 
+      
+</div> 
+</>
   );
 };
 
