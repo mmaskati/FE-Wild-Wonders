@@ -1,5 +1,5 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import Axios from 'axios'; //AJAX functionality for React (npm i axios)
 import Species from './Species';
@@ -64,8 +64,8 @@ Axios.get(`species/edit?id=${id}`, passToken)
 }
 
 //create the API for Update Species 
-const updateSpecies = (specie) => {
-Axios.put("species/update",specie, passToken)
+const updateSpecies = (species) => {
+Axios.post("species/update",species, passToken)
 .then(( res ) => {
     console.log("Species Updated Successfully!");
     console.log(res);

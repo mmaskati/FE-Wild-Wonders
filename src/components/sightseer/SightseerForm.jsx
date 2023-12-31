@@ -50,7 +50,7 @@ const SightseerForm = () => {
   };
 
   return (
-    <div className="container-fluid">
+    <div className="container py-5 mb-5">
   
       <p>Have you seen a whale or a dolphin? Report your sighting and help the local research!
          View all the sightings reported from the public in the Sighting map!</p>
