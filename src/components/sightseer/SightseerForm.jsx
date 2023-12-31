@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-
 const SightseerForm = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -204,6 +203,7 @@ const SightseerForm = () => {
                 )}
                 </div>
               </div>
+
             </div>
           </div>
         </form>
