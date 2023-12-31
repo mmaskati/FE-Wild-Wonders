@@ -24,7 +24,6 @@ export default function Dashboard(props) {
   return (
     <>
 <div className="container mt-5 mb-5">
-
   
         <h5>Dashboard</h5>
 
@@ -33,12 +32,7 @@ export default function Dashboard(props) {
     {/* {scientistDashboard} */}
 
     { props.isAuth && props.userData.userType==3 ? <> <SightseerForm /> </> : <span></span> }
-    {/* { isAuth && userData.userType==1 ? <AdminUserList /> : <Signin login={loginHandler} warning={warning} /> } */}
-
-<br />
-<br />
-<br />
-<br />
+    
 
 </div>
 </>
