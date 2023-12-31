@@ -14,14 +14,6 @@
   }
 }
 
-.b-example-divider {
-  width: 100%;
-  height: 3rem;
-  background-color: rgba(0, 0, 0, .1);
-  border: solid rgba(0, 0, 0, .15);
-  border-width: 1px 0;
-  box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-}
 
 .b-example-vr {
   flex-shrink: 0;
@@ -52,21 +44,29 @@
   -webkit-overflow-scrolling: touch;
 }
 
-.btn-bd-primary {
-  --bd-violet-bg: #712cf9;
-  --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
 
-  --bs-btn-font-weight: 600;
+.btn-bd-primary {
+  --bd-tiger-orange: #ff9900; 
+  --bd-tiger-black: #333333; 
+
+  --bs-btn-font-weight: 700; 
   --bs-btn-color: var(--bs-white);
-  --bs-btn-bg: var(--bd-violet-bg);
-  --bs-btn-border-color: var(--bd-violet-bg);
+  --bs-btn-bg: var(--bd-tiger-orange);
+  --bs-btn-border-color: var(--bd-tiger-orange);
   --bs-btn-hover-color: var(--bs-white);
-  --bs-btn-hover-bg: #6528e0;
-  --bs-btn-hover-border-color: #6528e0;
-  --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
-  --bs-btn-active-color: var(--bs-btn-hover-color);
-  --bs-btn-active-bg: #5a23c8;
-  --bs-btn-active-border-color: #5a23c8;
+  --bs-btn-hover-bg: #4d2600; 
+  --bs-btn-hover-border-color: #4d2600; 
+  --bs-btn-focus-shadow-rgb: 255, 153, 0;
+  --bs-btn-active-color: var(--bs-white);
+  --bs-btn-active-bg: #331a00; 
+  --bs-btn-active-border-color: #331a00; 
+}
+
+.bg{
+  /* background-image: url("./images/13031912_1606.m00.i125.n007.S.c12.150566579\ Earth\ globe\ world\ map\ of\ dots\ vector\ illustration.jpg"); */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .bd-mode-toggle {
@@ -101,11 +101,11 @@
   }
 }
 
-/* CSS for SignIn & SignUp Forms */
 
 .form-signin {
-  max-width: 330px;
-  padding: 1rem;
+  max-width: 700px;
+  padding: 2rem;
+  margin: auto;
 }
 
 .form-signin .form-floating:focus-within {
@@ -113,13 +113,9 @@
 }
 
 .form-signin input[type="email"] {
-  margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
+  margin-bottom: 10px;
 }
 
 .form-signin input[type="password"] {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+  margin-bottom: 20px;
 }

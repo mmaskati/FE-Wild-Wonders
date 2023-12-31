@@ -15,7 +15,10 @@ import Signin from './components/user/Signin';
 
 
 //SightseerForm - Wael
-import SightseerForm from "./components/sightseer/SightseerForm";
+// import SightseerForm from "./components/sightseer/SightseerForm";
+// import ScientistTable from "./components/scientist/ScientistTable";
+import ScientistEditPage from "./components/scientist/ScientistEditPage";
+
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faUser, faPencil, faTrash, faUserPlus, faStar } from "@fortawesome/free-solid-svg-icons";
@@ -126,6 +129,8 @@ const loginHandler = (credentials) => {
   })
 }
 
+
+
 //Mazen - callback API for Scientist Dashboard
 // const scientistDashboard = () => {
 //   Axios.post("scientist/dashboard")
@@ -141,6 +146,7 @@ const loginHandler = (credentials) => {
 
 return (
 <>
+<div className="bg">
 <nav>
 <header className="p-3 text-bg-dark">
     <div className="container">
@@ -173,6 +179,7 @@ return (
 
       </div>
     </div>
+    
 </header>
 
   {/* <Header isAuth={isAuth} user={user} /> */}
@@ -180,7 +187,8 @@ return (
 </nav>
 
 <div className="container mt-5">
-    
+
+
 <main>
     <Routes>
       <Route path="/" element={ isAuth ? <Dashboard userData={userData} /> : <Signin login={loginHandler}></Signin>}></Route>
@@ -192,11 +200,14 @@ return (
 </div>
       
     <div>
-      <SightseerForm />
+      {/* <SightseerForm /> */}
+      {/* <ScientistTable/> */}
+      <ScientistEditPage/>
       </div>
+      
 
 <Footer />
-
+</div>
 </>
 );
 }
