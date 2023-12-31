@@ -3,7 +3,6 @@ import React from 'react';
 // import { useState } from 'react';
 
 import SightseerForm from '../../components/sightseer/SightseerForm';
-// import AdminForm from '../admin/AdminForm';
 import AdminUserList from '../../components/admin/UserList';
 
 export default function Dashboard(props) {
@@ -24,7 +23,7 @@ export default function Dashboard(props) {
 
   return (
     <>
-<div className="container py-5 mb-5">
+<div className="container mt-5">
   
         <h5>Dashboard</h5>
 
@@ -33,8 +32,7 @@ export default function Dashboard(props) {
     {/* {scientistDashboard} */}
 
     { props.isAuth && props.userData.userType==3 ? <> <SightseerForm /> </> : <span></span> }
-    { props.isAuth && props.userData.userType==1 ? <> <AdminUserList /> </> : <span></span> }
-    
+    {/* { isAuth && userData.userType==1 ? <AdminUserList /> : <Signin login={loginHandler} warning={warning} /> } */}
 
 </div>
 </>
