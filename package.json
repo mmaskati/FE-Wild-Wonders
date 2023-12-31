@@ -51,5 +51,8 @@
   "description": "Wild Wonders - Sightseers meet Scientists (Frontend)",
   "main": "index.js",
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
 }

@@ -8,7 +8,7 @@ const [newUser, setNewUser] = useState({});
 const handleChange = (e) => {
     const user = {...newUser};
     user[e.target.name] = e.target.value;
-    console.log(user);
+    //console.log(user);
     setNewUser(user);
 };
 
@@ -20,11 +20,12 @@ const registerHandler = (event) => {
 
   return (
     
-    <>
+<>
+<div className="container mt-5">
 
 <div className="form-signin w-100 m-auto">
 
-<form onSubmit={registerHandler} autoComplete="off" >
+<form onSubmit={registerHandler} autoComplete="off">
   
     <h1 className="h3 mb-3 fw-normal">Sign Up</h1>
 
@@ -52,7 +53,9 @@ const registerHandler = (event) => {
 
   </form>
 </div>
-    </>
+
+</div>
+</>
 
   )
 }

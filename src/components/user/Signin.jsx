@@ -21,14 +21,13 @@ const loginHandler = (event) => {
 
   return (
     
-    <>
- 
+<>
+<div className="container mt-5">
+
 <div className="form-signin w-100 m-auto">
 
 <form onSubmit={loginHandler} autoComplete="off" >
-  
     <h1 className="h3 mb-3 fw-normal">Sign in</h1>
-
     <div className="form-floating">
       <input type="email" placeholder="Email" id="emailAddress" name="emailAddress" className="form-control" onChange={handleChange} required />
       <label htmlFor="emailAddress">Email address</label>
@@ -38,12 +37,15 @@ const loginHandler = (event) => {
       <label htmlFor="password">Password</label>
     </div>
 
-    <button className="btn btn-bd-primary w-100 py-2" type="submit">Login</button>
+    <button className="btn btn-bd-primary w-100 py-2" type="submit" data-bs-dismiss={props.showModal}>Login</button>
 
   </form>
+  <code className="text-danger text-center">{props.warning}</code>
+  <br />
 </div>
 
-    </>
+</div>
+</>
 
   )
 }
