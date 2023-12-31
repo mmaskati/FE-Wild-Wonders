@@ -31,6 +31,8 @@ const MarkerCluster = ({ markers, addMarkers }) => {
 
 function onMapMoveEnd(event) {
 
+// map.on("moveend", () => {
+
     addMarkers();
     const markersToAdd = [];
     markerClusters.clearLayers();

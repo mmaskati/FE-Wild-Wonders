@@ -21,6 +21,7 @@ import Leaflet from './components/scientist/Leaflet';
 import About from './components/page/About';
 //Admin User
 import AdminUserList from './components/admin/UserList';
+
 library.add(faUser, faPencil, faTrash, faUserPlus, faStar);
 function App() {
 //declare states
@@ -181,13 +182,18 @@ return (
     <Routes>
       <Route path="/signup" element={ signedUp ? <Signin login={loginHandler} warning={warning} /> : <Signup register={registerHandler} /> }></Route>
       <Route path="/signin" element={ isAuth ? <Dashboard isAuth={isAuth} userData={userData} /> : <Signin login={loginHandler} /> }></Route>
+
       <Route path="/" element={ isAuth ? <Dashboard isAuth={isAuth} userData={userData} /> : <Leaflet /> }></Route>
       <Route path="/map" element={ isAuth ? <Leaflet /> : <Signin login={loginHandler} warning={warning} /> }></Route>
     </Routes>
 </main>
 </div>
+    
+    
     {/* <div className="container pb-5 mb-5">
+
     </div> */}
+
 <About />
 <Footer />
 </>
