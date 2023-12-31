@@ -23,12 +23,13 @@ import { faUser, faPencil, faTrash, faUserPlus, faStar } from "@fortawesome/free
 
 
 //Mazen - adding Scientist View
-import Dashboard from './components/scientist/Dashboard';
+import Dashboard from './components/page/Dashboard';
 // import Map from './components/scientist/Map';
-import Leaflet from './components/scientist/Leaflet';
+import Leaflet from './components/map/Leaflet';
 import About from './components/page/About';
 //Admin User
 import AdminUserList from './components/admin/UserList';
+import SpeciesList from "./components/scientist/SpeciesList";
 
 library.add(faUser, faPencil, faTrash, faUserPlus, faStar);
 
@@ -176,8 +177,11 @@ return (
         { isAuth ? 
         
           <>
-            { userData.userType == 1 ? <Link to="/map" className="btn btn-outline-primary me-2">Admin Map</Link> : <></> }
-            { userData.userType == 2 ? <Link to="/map" className="btn btn-outline-primary me-2">Scientist Map</Link> : <></> }
+            { userData.userType == 1 ? <>
+              <Link to="/map" className="btn btn-outline-primary me-2">Admin Map</Link> 
+              <Link to="/user" className="btn btn-outline-light me-2">Users</Link></>
+             : <></> }
+            { userData.userType == 2 ? <Link to="/species" className="btn btn-success me-2">Species List</Link> : <></> }
             { userData.userType == 3 ? <Link to="/" className="btn btn-outline-light me-2">Home</Link> : <></> }
           
 
@@ -238,14 +242,16 @@ return (
 
       <Route path="/" element={ isAuth ? <Dashboard isAuth={isAuth} userData={userData} /> : <Leaflet /> }></Route>
       <Route path="/map" element={ isAuth ? <Leaflet /> : <Signin login={loginHandler} warning={warning} /> }></Route>
+      <Route path="/species" element={ isAuth ? <SpeciesList /> : <Signin login={loginHandler} warning={warning} /> }></Route>
+      <Route path="/user" element={ isAuth && userData.userType==1 ? <AdminUserList /> : <Signin login={loginHandler} warning={warning} /> }></Route>
     </Routes>
 </main>
   
 </div>
     
     
-    {/* <div className="container pb-5 mb-5">
-
+   {/* <div className="container pb-5 mb-5">
+{ isAuth && userData.userType==1 ? <AdminUserList /> : <span></span> }
     </div> */}
 
 <About />
