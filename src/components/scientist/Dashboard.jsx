@@ -32,7 +32,7 @@ export default function Dashboard(props) {
     {/* {scientistDashboard} */}
 
     { props.isAuth && props.userData.userType==3 ? <> <SightseerForm /> </> : <span></span> }
-    { props.isAuth && props.userData.userType==1 ? <> <AdminUserList /> </> : <span></span> }
+    {/* { isAuth && userData.userType==1 ? <AdminUserList /> : <Signin login={loginHandler} warning={warning} /> } */}
 
 </div>
 </>

@@ -24,7 +24,9 @@ const handleSubmit = (event) => {
 <>
 <div className="container mt-5">
 
-<div className="py-1 text-center">
+<h5>Admin User List</h5>
+
+{/* <div className="py-1 text-center">
       <h2>Submission form</h2>
       <p className="lead">
       Worldwide, whales and dolphins are increasingly threatened. 
@@ -234,7 +236,7 @@ const handleSubmit = (event) => {
           <button className="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button>
         </form>
       </div>
-    </div>
+    </div> */}
 
 </div>
 </>

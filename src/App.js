@@ -27,7 +27,8 @@ import Dashboard from './components/scientist/Dashboard';
 // import Map from './components/scientist/Map';
 import Leaflet from './components/scientist/Leaflet';
 import About from './components/page/About';
-// import AdminUserList from './components/admin/UserList';
+//Admin User
+import AdminUserList from './components/admin/UserList';
 
 library.add(faUser, faPencil, faTrash, faUserPlus, faStar);
 
@@ -235,7 +236,7 @@ return (
       <Route path="/signup" element={ signedUp ? <Signin login={loginHandler} warning={warning} /> : <Signup register={registerHandler} /> }></Route>
       <Route path="/signin" element={ isAuth ? <Dashboard isAuth={isAuth} userData={userData} /> : <Signin login={loginHandler} /> }></Route>
 
-      <Route path="/" element={ isAuth ? <Dashboard isAuth={isAuth} userData={userData} /> : <Signin login={loginHandler} warning={warning} /> }></Route>
+      <Route path="/" element={ isAuth ? <Dashboard isAuth={isAuth} userData={userData} /> : <Leaflet /> }></Route>
       <Route path="/map" element={ isAuth ? <Leaflet /> : <Signin login={loginHandler} warning={warning} /> }></Route>
     </Routes>
 </main>
@@ -243,17 +244,9 @@ return (
 </div>
     
     
-    <div className="container pb-5 mb-5">
-    {/* <p>Name: {userData.firstName} {userData.lastName}</p><br />
-    <p>Type: {userData.userType}</p><br /> */}
+    {/* <div className="container pb-5 mb-5">
 
-      {/* <p>{ getUser().userType }</p> */} 
-
-      {/* { isAuth && userData.userType==3 ? <> <SightseerForm /> </> : <span></span> }
-      { isAuth && userData.userType==1 ? <> <AdminUserList /> </> : <span></span> } */}
-
-
-    </div>
+    </div> */}
 
 <About />
 <Footer />

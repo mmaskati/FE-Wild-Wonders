@@ -5,8 +5,8 @@ import MarkerCluster from "./Clusters";
 const Leaflet = () => {
 let markers;
 
-const position = [51.505, -0.09];
-const mapStyle = { height: "90vh" };
+const position = [26, 0]; //default 51.505, -0.09
+const mapStyle = { height: "80vh" };
 
 const addMarkers = () => {
 markers = [];
@@ -22,10 +22,9 @@ for (let i = 0; i < 1000; i++) {
 
 addMarkers();
 
-
 return (
 <>
-    <MapContainer center={position} zoom={2} style={mapStyle} maxZoom={20}>
+    <MapContainer center={position} zoom={3} style={mapStyle} maxZoom={20}>
     <TileLayer
         url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

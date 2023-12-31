@@ -76,6 +76,10 @@
   display: block !important;
 }
 
+.text-bd-primary {
+  color: #712cf9;
+}
+
 .theMap {
   border:0; 
   height: 95vh !important;
