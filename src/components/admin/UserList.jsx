@@ -1,28 +1,18 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import User from './User';
-
 import Axios from 'axios';
+
+import User from './User';
+import UserCreateForm from './UserCreateForm';
+import UserEditForm from './UserEditForm';
 
 export default function UserList(props) {
 
 const [users, setUsers] = useState([]);
+const [isEdit, setIsEdit] = useState(false); //this is used for Edit
+const [currentUser, setCurrentUser] = useState({}); //this is used to set the content for the Edit form
 
-const [newRecord, setnewRecord] = useState({});
-
-const handleChange = (e) => {
-    const user = {...newRecord};
-    user[e.target.name] = e.target.value;
-    //console.log(user);
-    setnewRecord(user);
-};
-
-const handleSubmit = (event) => {
-    event.preventDefault();
-    // console.log(newRecord);
-    props.login(newRecord);
-    event.target.reset();
-};
+const passToken = { headers: { "Authorization": "Bearer " + localStorage.getItem("token")}};
 
 useEffect(() => {
 //call API
@@ -32,7 +22,7 @@ loadUserList();
 
 //using axios for the API fetching GET 
 const loadUserList = () => {
-Axios.get("user/index")
+Axios.get("user/index", passToken)
     .then((response) => {
     console.log(response);
     setUsers(response.data.users);
@@ -42,9 +32,67 @@ Axios.get("user/index")
     })
 };
 
+//create the API for creating the User
+const addUser = (user) => {
+  Axios.post("user/add", user, passToken) //this is passToken defined earlier
+  .then((response) => { 
+      console.log("User Added Successfully!");
+      loadUserList();
+      })
+  .catch((error) => {
+      console.error("Error Adding User: " + error);
+      })
+}
+
+//create the API for preparing the content for the Edit Form
+const editView = (id) => {
+  console.log(passToken)
+  Axios.get(`user/edit?id=${id}`, passToken)
+  .then( ( res ) => {
+      console.log("Loaded User Information");
+      console.log(res.data.user);
+      let user = res.data.user;
+      setIsEdit(true);
+      setCurrentUser(user);
+  })
+  .catch((error) => {
+      console.log("Error loading user Information: ");
+      console.log(error);
+  })
+}
+
+//create the API for Update User 
+const updateUser = (user) => {
+  Axios.put("user/update",user, passToken)
+  .then(( res ) => {
+      console.log("User Updated Successfully!");
+      console.log(res);
+      loadUserList();
+      setIsEdit(false); //reset to hide the form again
+  })
+  .catch((error) => {
+      console.log("Error Updating User Information: ");
+      console.log(error); 
+  })
+}
+
+//create Delete API to Delete User
+const deleteUser = (id) => {
+  Axios.delete(`user/delete?id=${id}`, passToken)
+  .then(( res ) => {
+      console.log("User Deleted Successfully!");
+      // console.log(res);
+      loadUserList();
+  })
+  .catch((error) => {
+      console.log("Error finding the User Information: ");
+      console.log(error);
+  })
+}
+
 const allUsers = users.map((user, index) => (
   <tr key={index}>
-      <User {...user} index={index+1} />
+      <User {...user} index={index+1} editView={editView} deleteUser={deleteUser} />
   </tr>    
 ))
 
@@ -53,22 +101,29 @@ const allUsers = users.map((user, index) => (
 <>
 <div className="container py-5 mb-5">
 
+{(isEdit) ? 
+    <UserEditForm key={currentUser._id} user={currentUser} updateUser={updateUser} isEdit={setIsEdit} /> 
+    : 
+    // <UserCreateForm addUser={addUser} /> 
+<>
 <h5>Admin User List</h5>
-
 <table className="table">
-        <tbody>
-            <tr className="table-primary">
-                <th>No.</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Type</th>
-                <th>Actions(s)</th>
-            </tr>
-                {allUsers}
-            </tbody>
-        </table>
-
+<tbody>
+    <tr className="table-primary">
+        <th>No.</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Type</th>
+        <th>Created</th>
+        <th>Updated</th>
+        <th>Actions(s)</th>
+    </tr>
+        {allUsers}
+    </tbody>
+</table>
+</>
+}
 </div>
 </>
 

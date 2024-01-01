@@ -5,16 +5,19 @@ import React from "react";
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import Header from './components/page/Header';
 import Footer from './components/page/Footer';
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import Axios from 'axios';
 import { useEffect, useState } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import Signup from './components/user/Signup';
 import Signin from './components/user/Signin';
+import Access from './components/user/Access';
+import Profile from './components/user/Profile';
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faUser, faPencil, faTrash, faUserPlus, faStar } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faPencil, faTrash, faUserPlus, faStar, faWarning } from "@fortawesome/free-solid-svg-icons";
 //SightseerForm - Wael
-// import SightseerForm from "./components/sightseer/SightseerForm";
+import RecordList from "./components/record/RecordList";
+import RecordCreateForm from "./components/record/RecordCreateForm";
 //Mazen - adding Scientist View
 import Dashboard from './components/page/Dashboard';
 // import Map from './components/scientist/Map';
@@ -24,7 +27,9 @@ import About from './components/page/About';
 import AdminUserList from './components/admin/UserList';
 import SpeciesList from "./components/scientist/SpeciesList";
 
-library.add(faUser, faPencil, faTrash, faUserPlus, faStar);
+const passToken = { headers: { "Authorization": "Bearer " + localStorage.getItem("token")}};
+
+library.add(faUser, faPencil, faTrash, faUserPlus, faStar, faWarning);
 function App() {
 //declare states
 const [isAuth, setIsAuth] = useState(false);
@@ -33,13 +38,18 @@ const [userData, setuserData] = useState({});
 const [signedUp, setSignedUp] = useState(false);
 const [userType, setUserType] = useState(0);
 const [warning, setWarning] = useState('');
+
+const resetValue=false;
+const [isCreate, setIsCreate] = useState(false); //this is used for Edit
+
+const navigate = useNavigate();
 // const [showModal, setShowModal] = useState("none");
 // const handleClose = () => setShowModal("modal");
 // const handleShow = () => setShowModal(true);
 //we need to trigger the user/token check if the user is logged in everytime a page is refreshed even
 useEffect(() => {
   // console.count('useEffect');
-  const user = getUser();
+const user = getUser();
   // console.log(user);
   //if there is a user then keep everything in check
   if(user){
@@ -57,13 +67,16 @@ useEffect(() => {
     setIsAuth(false);
     setUser(null);
   }
+
 }, []);
+
 //MAZEN - API GET USER PROFILE
 const fetchUserData = (id) => {
   //console.log(id);
   Axios.post("user/fetch", { userID: id })
   .then((response) => {
     setuserData(response.data.userDetails);
+    setIsAuth(true);
     // console.log(response);
   })
   .catch((error) => {
@@ -75,6 +88,9 @@ const registerHandler = (user) => {
   .then((response) => {
     //console.log(response);
     setSignedUp(true);
+
+    navigate('/signin');
+
     //from here we can do useNavigate using hooks like navigate("/") >>>
   })
   .catch((error) => {
@@ -94,14 +110,17 @@ const getToken = () => {
 const onLogoutHandler = (e) => {
   e.preventDefault();
   localStorage.removeItem("token");
+  setSignedUp(false);
   setIsAuth(false);
   setUser(null);
+  navigate('/');
 }
 const loginHandler = (credentials) => {
   Axios.post("auth/signin", credentials)
   .then(( response ) => {
     console.log(response.data.token);
-    setWarning('Login Error! Try again.');
+    setWarning('There was an Error! Please try again.');
+    setSignedUp(false);
     //we need to validate the token
     let token = response.data.token;
     if(token != null){
@@ -110,11 +129,18 @@ const loginHandler = (credentials) => {
       const user = getUser();
       if(user){
         // setShowModal("modal");
+        setSignedUp(false);
+        navigate('/');
         fetchUserData(user.id);
-      }
+      // console.log(isAuth);
       // console.log(user);
       user ? setIsAuth(true) : setIsAuth(false);
       user ? setUser(true) : setUser(null);
+
+      }
+      
+console.log(isAuth);
+
     }
   })
   .catch(( error ) => {
@@ -125,6 +151,37 @@ const loginHandler = (credentials) => {
     setUser(null);
   })
 }
+
+//user for user profile
+const [isEdit, setIsEdit] = useState(false); //this is used for Edit
+
+const editView = (id) => {
+  Axios.get(`user/edit?id=${id}`, passToken)
+  .then( ( res ) => {
+      console.log("Loaded User Profile  Information");
+      console.log(res.data.user);
+      let user = res.data.user;
+      setIsEdit(true);
+  })
+  .catch((error) => {
+      console.log("Error loading user Information: ");
+      console.log(error);
+  })
+}
+
+const updateUserProfile = (user) => {
+  Axios.post("user/profile",user, passToken)
+  .then(( res ) => {
+      console.log("User Profile Updated Successfully!");
+      setIsEdit(false);
+      navigate('/');
+  })
+  .catch((error) => {
+      console.log("Error Updating User Information: ");
+      console.log(error); 
+  })
+}
+
 // console.log(userData);
 return (
 <>
@@ -138,12 +195,20 @@ return (
         <div className="text-end">
         { isAuth ?
           <>
+            { userData.userType <= 3 ? <>
+                      <Link to="/" className="btn btn-bd-primary me-2">Home</Link> 
+                      <Link to="/record" onClick={ () => setIsCreate(false)} className="btn btn-light me-2">Records</Link>
+                      
+               </> : <></> }
+            
+            { userData.userType <= 2 ? <Link to="/species" className="btn btn-success me-2">Species List</Link> : <></> }
+            
             { userData.userType == 1 ? <>
-              <Link to="/map" className="btn btn-outline-primary me-2">Admin Map</Link> 
-              <Link to="/user" className="btn btn-outline-light me-2">Users</Link></>
+              <Link to="/map" className="btn btn-outline-primary me-2">Map</Link> 
+              <Link to="/user" className="btn btn-outline-primary me-2">Users</Link></>
              : <></> }
-            { userData.userType == 2 ? <Link to="/species" className="btn btn-success me-2">Species List</Link> : <></> }
-            { userData.userType == 3 ? <Link to="/" className="btn btn-outline-light me-2">Home</Link> : <></> }
+            
+            <Link to="/profile" className="profile_img btn me-2" onClick={() => editView(userData._id)}><img className="img_profile" src="./logo512.png" referrerPolicy="no-referrer" alt="Profile Photo" height="35px" /></Link>
             <Link to="/logout" className="btn btn-outline-danger" onClick={onLogoutHandler}>Logout</Link>
           </>
           :
@@ -186,12 +251,15 @@ return (
 <main>
     <Routes>
       <Route path="/signup" element={ signedUp ? <Signin login={loginHandler} warning={warning} /> : <Signup register={registerHandler} /> }></Route>
-      <Route path="/signin" element={ isAuth ? <Dashboard isAuth={isAuth} userData={userData} /> : <Signin login={loginHandler} /> }></Route>
+      <Route path="/signin" element={ isAuth ? <Dashboard userData={userData} /> : <Signin login={loginHandler} /> }></Route>
 
-      <Route path="/" element={ isAuth ? <Dashboard isAuth={isAuth} userData={userData} /> : <Leaflet /> }></Route>
+      <Route path="/" element={ isAuth ? <><Dashboard userData={userData} /> </> : <Leaflet /> }></Route>
       <Route path="/map" element={ isAuth ? <Leaflet /> : <Signin login={loginHandler} warning={warning} /> }></Route>
-      <Route path="/species" element={ isAuth ? <SpeciesList /> : <Signin login={loginHandler} warning={warning} /> }></Route>
-      <Route path="/user" element={ isAuth && userData.userType==1 ? <AdminUserList /> : <Signin login={loginHandler} warning={warning} /> }></Route>
+      <Route path="/species" element={ isAuth && userData.userType<=2 ? <SpeciesList /> : <Access /> }></Route>
+      <Route path="/record" element={ isAuth ? <RecordList isCreate={isCreate} setIsCreate={setIsCreate} /> : <Signin login={loginHandler} warning={warning} /> }></Route>
+      <Route path="/profile" element={ isAuth && isEdit ? <Profile user={userData} updateUserProfile={updateUserProfile} isEdit={setIsEdit} /> : <Access /> }></Route>
+      <Route path="/user" element={ isAuth && userData.userType==1 ? <AdminUserList /> : <Access /> }></Route>
+
     </Routes>
 </main>
 </div>

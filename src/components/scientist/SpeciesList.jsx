@@ -8,11 +8,11 @@ import SpeciesEditForm from './SpeciesEditForm';
 
 export default function SpeciesList() {
 
-const [species, setSpeciess] = useState([]); //this is used for Create
+const [species, setSpecies] = useState([]); //this is used for Create
 const [isEdit, setIsEdit] = useState(false); //this is used for Edit
 const [currentSpecies, setCurrentSpecies] = useState({}); //this is used to set the content for the Edit form
 
-const passToken = { headers: { "Speciesization": "Bearer " + localStorage.getItem("token")}};
+const passToken = { headers: { "Authorization": "Bearer " + localStorage.getItem("token")}};
 
 // const passToken = props.passedToken;
 
@@ -24,10 +24,10 @@ loadSpeciesList();
 
 //using axios for the API fetching GET 
 const loadSpeciesList = () => {
-Axios.get("species/index")
+Axios.get("species/index", passToken)
 .then((response) => {
 console.log(response);
-setSpeciess(response.data.species);
+setSpecies(response.data.species);
 })
 .catch((error) => {
 console.log(error);

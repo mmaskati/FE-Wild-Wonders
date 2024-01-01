@@ -45,6 +45,11 @@ const registerHandler = (event) => {
     </div>
 
     <div className="form-floating">
+      <input type="number" placeholder="Phone Number" id="phoneNumber" name="phoneNumber" className="form-control" onChange={handleChange} />
+      <label htmlFor="phoneNumber">Phone Number (Optional)</label>
+    </div>
+
+    <div className="form-floating">
       <input type="password" name="password" id="password" minLength={6} placeholder="Enter Password" className="form-control" onChange={handleChange} required />
       <label htmlFor="password">Password</label>
     </div>

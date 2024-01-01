@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 
 
-export default function EditRecordList(props) {
+export default function RecordEditForm(props) {
     console.log(props);
     const [newRecordList , setnnewRecordList] = useState(props.author)
     const handleChange = (event) => { 
