@@ -56,6 +56,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - React-router-dom
 - Dayjs
 - Font Awesome for React.js
+- PrimeReact
+- Exif.js
 
 ## To Run the Web App:
 

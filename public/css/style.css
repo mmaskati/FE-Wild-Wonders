@@ -128,3 +128,8 @@
     }
   }
 } */
+
+.img-fluid {
+  width: 600px; 
+  height: 340px;
+}

@@ -8,10 +8,10 @@ dayjs.extend(relativeTime);
 export default function Record(props) {
   return (
     <>
-    <td>{props.index} - {props._id}</td>
+    <td>{props.index}</td>
     {/* {JSON.stringify(props)} */}
     <td>{JSON.stringify(props.species.name)}</td>
-    <td>{dayjs(props.date).format('YYYY-MM-DD HH:mm')} UTC</td>
+    <td>{dayjs(props.date).format('YYYY-MM-DD HH:mm')}</td>
     <td>{props.location}</td>
     <td>{props.locationLongitude}</td>
     <td>{props.locationLatitude}</td>
