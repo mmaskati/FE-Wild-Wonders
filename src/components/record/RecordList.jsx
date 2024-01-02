@@ -6,6 +6,8 @@ import Axios from 'axios'; //AJAX functionality for React (npm i axios)
 import Record from './Record';
 import RecordCreateForm from './RecordCreateForm';
 import RecordEditForm from './RecordEditForm';
+// import RecordCreateForm from '../sightseer/RecordFormCreate';
+// import RecordEditForm from './RecordEditForm';
 
 export default function RecordList(props) {
 
