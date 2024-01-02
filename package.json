@@ -15,6 +15,7 @@
     "jwt-decode": "^4.0.0",
     "leaflet": "^1.9.4",
     "leaflet.markercluster": "^1.5.3",
+    "primereact": "^10.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-leaflet": "^4.2.1",
@@ -51,8 +52,5 @@
   "description": "Wild Wonders - Sightseers meet Scientists (Frontend)",
   "main": "index.js",
   "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "typescript": "^5.3.3"
-  }
+  "license": "ISC"
 }
