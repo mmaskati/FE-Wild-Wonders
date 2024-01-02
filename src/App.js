@@ -39,8 +39,9 @@ const [signedUp, setSignedUp] = useState(false);
 const [userType, setUserType] = useState(0);
 const [warning, setWarning] = useState('');
 
-const resetValue=false;
-const [isCreate, setIsCreate] = useState(false); //this is used for Edit
+// const resetValue=false;
+const [isCreateRecord, setIsCreateRecord] = useState(false); //this is used for Edit
+const [isEditRecord, setIsEditRecord] = useState(false);
 
 const navigate = useNavigate();
 // const [showModal, setShowModal] = useState("none");
@@ -197,7 +198,7 @@ return (
           <>
             { userData.userType <= 3 ? <>
                       <Link to="/" className="btn btn-bd-primary me-2">Home</Link> 
-                      <Link to="/record" onClick={ () => setIsCreate(false)} className="btn btn-light me-2">Records</Link>
+                      <Link to="/record" onClick={ () => setIsCreateRecord(false)} className="btn btn-light me-2">Records</Link>
                       
                </> : <></> }
             
@@ -256,7 +257,7 @@ return (
       <Route path="/" element={ isAuth ? <><Dashboard userData={userData} /> </> : <Leaflet /> }></Route>
       <Route path="/map" element={ isAuth ? <Leaflet /> : <Signin login={loginHandler} warning={warning} /> }></Route>
       <Route path="/species" element={ isAuth && userData.userType<=2 ? <SpeciesList /> : <Access /> }></Route>
-      <Route path="/record" element={ isAuth ? <RecordList isCreate={isCreate} setIsCreate={setIsCreate} /> : <Signin login={loginHandler} warning={warning} /> }></Route>
+      <Route path="/record" element={ isAuth ? <RecordList isCreateRecord={isCreateRecord} setIsCreateRecord={setIsCreateRecord} isEditRecord={isEditRecord} setIsEditRecord={setIsEditRecord} /> : <Signin login={loginHandler} warning={warning} /> }></Route>
       <Route path="/profile" element={ isAuth && isEdit ? <Profile user={userData} updateUserProfile={updateUserProfile} isEdit={setIsEdit} /> : <Access /> }></Route>
       <Route path="/user" element={ isAuth && userData.userType==1 ? <AdminUserList /> : <Access /> }></Route>
 

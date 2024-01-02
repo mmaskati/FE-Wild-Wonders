@@ -127,7 +127,7 @@ Axios.get(`species/detail?id=${id}`, props.passToken)
         <div className="row g-5">
 
         <div className="col-md-7 col-lg-8">
-            <div className="mb-3 pb-1">
+            <div>
                 <label htmlFor="species" className="form-label">Species</label>
                 
                 <select id="species" name="species" className="form-select" onChange={handleSpeciesChange} required>
@@ -163,7 +163,7 @@ Axios.get(`species/detail?id=${id}`, props.passToken)
             </div>
 
             <div className="mb-3 pb-1">
-                <button onClick={ () => props.setIsCreate(false) } className="btn btn-secondary me-2">Cancel</button>
+                <button onClick={ () => props.setIsCreateRecord(false) } className="btn btn-secondary me-2">Cancel</button>
                 <input className='btn btn-primary' type="submit" value="Add Record" />
             </div>
 

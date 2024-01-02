@@ -122,3 +122,53 @@
   top: 0;
   left: 0;
 }
+
+.p-datatable-table {
+  font-size: 1rem;
+  border-collapse: separate; 
+  border-spacing: 0.5em;
+}
+
+/* .p-datatable-table tr:nth-child(even){
+  background-color:#eeeeee;
+
+} */
+  
+.p-datatable-thead{
+  background-color: #4CAF50;
+}
+
+.p-column-title{
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: white;
+}
+
+.w3-table,.w3-table-all{border-collapse:collapse;border-spacing:0;width:100%;display:table}.w3-table-all{border:1px solid #ccc}
+.w3-bordered tr,.w3-table-all tr{border-bottom:1px solid #ddd}.w3-striped tbody tr:nth-child(even){background-color:#f1f1f1}
+.w3-table-all tr:nth-child(odd){background-color:#fff}.w3-table-all tr:nth-child(even){background-color:#f1f1f1}
+.w3-hoverable tbody tr:hover,.w3-ul.w3-hoverable li:hover{background-color:#ccc}.w3-centered tr th,.w3-centered tr td{text-align:center}
+.w3-table td,.w3-table th,.w3-table-all td,.w3-table-all th{padding:8px 8px;display:table-cell;text-align:left;vertical-align:top}
+.w3-table th:first-child,.w3-table td:first-child,.w3-table-all th:first-child,.w3-table-all td:first-child{padding-left:16px}
+
+/* 
+p-datatable	Container element.
+p-datatable-scrollable	Container element when table is scrollable.
+p-datatable-header	Header section.
+p-datatable-footer	Footer section.
+p-datatable-wrapper	Wrapper of table element.
+p-datatable-table	Table element.
+p-datatable-thead	Table thead element.
+p-datatable-tbody	Table tbody element.
+p-datatable-tfoot	Table tfoot element.
+p-column-title	Title of a column.
+p-sortable-column	Sortable column header.
+p-frozen-column	Frozen column header.
+p-rowgroup-header	Header of a rowgroup.
+p-rowgroup-footer	Footer of a rowgroup.
+p-datatable-row-expansion	Expanded row content.
+p-row-toggler	Toggle element for row expansion.
+p-datatable-emptymessage	Cell containing the empty message.
+p-row-editor-init	Pencil button of row editor.
+p-row-editor-init	Save button of row editor.
+p-row-editor-init	Cancel button of row editor. */
