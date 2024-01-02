@@ -5,12 +5,13 @@ import { useEffect, useState } from 'react';
 import Axios from 'axios'; //AJAX functionality for React (npm i axios)
 import Record from './Record';
 import RecordCreateForm from './RecordCreateForm';
+import RecordEditForm from './RecordEditForm';
+// import RecordCreateForm from '../sightseer/RecordFormCreate';
 // import RecordEditForm from './RecordEditForm';
 
 export default function RecordList(props) {
 
 const [records, setRecord] = useState([]); //this is used for Create
-// const [isCreate, props.setIsCreate] = useState(props.resetRecords); //this is used for Edit
 const [currentRecord, setCurrentRecord] = useState({}); //this is used to set the content for the Edit form
 
 const passToken = { headers: { "Authorization": "Bearer " + localStorage.getItem("token")}};
@@ -40,6 +41,8 @@ const addRecord = (record) => {
 Axios.post("record/add", record, passToken) //this is passToken defined earlier
 .then((response) => { 
     console.log("Record Added Successfully!");
+    props.setIsCreateRecord(false);
+    props.setIsEditRecord(false); //reset to hide the form again
     loadRecordList();
     })
 .catch((error) => {
@@ -54,8 +57,8 @@ Axios.get(`record/edit?id=${id}`, passToken)
 .then( ( res ) => {
     // console.log("Loaded Record Information");
     // console.log(res.data.record);
-    let record = res.data.records;
-    props.setIsCreate(true);
+    let record = res.data.record;
+    props.setIsEditRecord(true);
     setCurrentRecord(record);
 })
 .catch((error) => {
@@ -70,8 +73,9 @@ Axios.post("record/update",records, passToken)
 .then(( res ) => {
     console.log("Record Updated Successfully!");
     console.log(res);
+    props.setIsCreateRecord(false);
+    props.setIsEditRecord(false); //reset to hide the form again
     loadRecordList();
-    props.setIsCreate(false); //reset to hide the form again
 })
 .catch((error) => {
     console.log("Error Updating Record Information: ");
@@ -97,7 +101,7 @@ Axios.get(`record/delete?id=${id}`, passToken)
 const allRecord = records.map((record, index) => (
 <tr key={index}>
     {/* <Record name={record.name} emailAddress={record.emailAddress} index={index} /> */}
-    <Record {...record} index={index+1} editView={editView} deleteRecord={deleteRecord} />
+    <Record {...record} index={index+1} editView={editView} deleteRecord={deleteRecord} isEditRecord={props.isEditRecord} setIsEditRecord={props.setIsEditRecord} />
 </tr>    
 ))
 
@@ -108,15 +112,19 @@ return (
 
 <div className="container py-5 mb-5">
 
-{/* <RecordEditForm key={currentRecord._id} record={currentRecord} updateRecord={updateRecord} isCreate={props.setIsCreate} /> */}
-
-{(props.isCreate) ?
+    {(props.isCreateRecord) ?
     <>
-    <RecordCreateForm passToken={passToken} addRecord={addRecord} isCreate={props.isCreate} setIsCreate={props.setIsCreate } />
+    <RecordCreateForm passToken={passToken} addRecord={addRecord} isCreateRecord={props.isCreateRecord} setIsCreateRecord={props.setIsCreateRecord } />
     </>
         : 
+    
+    (props.isEditRecord) ?
+        <>
+        <RecordEditForm key={currentRecord._id} record={currentRecord} editView={editView} updateRecord={updateRecord} isEditRecord={props.isEditRecord} setIsEditRecord={props.setIsEditRecord} />
+        </>
+    :
     <>
-    <button onClick={() => props.setIsCreate(true)} className="btn btn-outline-light">Add Record</button>
+    <button onClick={() => props.setIsCreateRecord(true)} className="btn btn-primary">Add Record</button>
     <br />
     <br />
     <h5> Record List</h5>
@@ -124,11 +132,13 @@ return (
     <tbody>
         <tr className="table-success">
         <th>No.</th>
-        <th>Species Name</th>
+        <th>Species</th>
         <th>Date / Time</th>
         <th>Location</th>
         <th>Longitude</th>
         <th>Latitude</th>
+        <th>Image</th>
+        <th>Note(s)</th>
         <th>Actions(s)</th>
         </tr>
             {allRecord}

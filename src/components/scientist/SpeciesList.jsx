@@ -6,6 +6,9 @@ import Species from './Species';
 // import SpeciesCreateForm from './SpeciesCreateForm';
 import SpeciesEditForm from './SpeciesEditForm';
 
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+
 export default function SpeciesList() {
 
 const [species, setSpecies] = useState([]); //this is used for Create
@@ -100,6 +103,10 @@ const allSpecies = species.map((specie, index) => (
 </tr>    
 ))
 
+const allDataSpecies = species.map((specie, index) => (
+{...specie}
+    ))
+
 return (
 <>
 
@@ -128,6 +135,20 @@ return (
             {allSpecies}
         </tbody>
     </table>
+
+    <DataTable value={allDataSpecies} paginator rows={10} showGridlines removableSort>
+        <Column field="name" sortable header="Name"></Column>
+        <Column field="characteristics.common_name" sortable header="Common"></Column>
+        <Column field="characteristics.speciestype" sortable header="Type"></Column>
+        <Column field="characteristics.weight" sortable header="Weight"></Column>
+        <Column field="characteristics.length" sortable header="Length"></Column>
+        <Column field="characteristics.color" sortable header="Color"></Column>
+        <Column field="characteristics.location" sortable header="Location"></Column>
+
+        {/* <Column field="notes" sortable header="Notes"></Column>
+        <Column field="show" sortable header="Show"></Column> */}
+    </DataTable>
+
 </>
 }
 </div>

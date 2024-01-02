@@ -145,7 +145,7 @@ const SightseerForm = () => {
             
 
             {/* Image Section */}
-            <div className="col-md-6">
+      <div className="col-md-6">
       <div className='row g-3'>
       <div class="col-sm-6">
       <label htmlFor="latitude" className="form-label">

@@ -119,15 +119,29 @@ Axios.get(`species/detail?id=${id}`, props.passToken)
 })
 }
 
+// Wael upload image cahnges 
+const [formData, setFormData] = useState({
+    image: null
+})
+
+const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setFormData((prevData) => ({
+      ...prevData,
+      image: file,
+    }));
+  };
+
+
   return (
     <div className="container py-1 mb-5">
-        <h1>Record a Sighting</h1>
+        <h1>Record a Sighting </h1>
         <form onSubmit={handleSubmit} autoComplete="false">
 
         <div className="row g-5">
 
         <div className="col-md-7 col-lg-8">
-            <div>
+            <div className="mb-3 pb-1">
                 <label htmlFor="species" className="form-label">Species</label>
                 
                 <select id="species" name="species" className="form-select" onChange={handleSpeciesChange} required>
@@ -147,20 +161,66 @@ Axios.get(`species/detail?id=${id}`, props.passToken)
             </div>
 
             <div className="mb-3 pb-1">
+            <label className="form-label">Time</label> 
+            <input type="time" className='form-control' name="time" onChange={handleChange}></input>
+
+
+
+            </div>
+            {/*             
+            <div className="mb-3">
+                <label htmlFor="date" className="form-label">
+                  Time/Date:
+                </label>
+                <input
+                  type="datetime-local"
+                  className="form-control"
+                  id="date"
+                  name="date"
+                  value={formData.dateTime}
+                  onChange={handleChange}
+                />
+              </div> */}
+
+
+            <div className="mb-3 pb-1">
                 <label className="form-label">Location</label>
                 <input type="text" className='form-control' name="location" onChange={handleChange}></input>
             </div>
+
+
+            <div className="mb-3">
+                <label htmlFor="note" className="form-label"> Note:</label>
+                <textarea className="form-control" id="note" name="note" value={formData.note} onChange={handleChange}></textarea>
+              </div>
+
         </div>
+
         <div className="col-md-5 col-lg-4">
             <div className="mb-3 pb-1">
-                <label className="form-label">Location Longatittude</label>
+                <label htmlFor="locationLongitude" className="form-label">Location Longatittude</label>
                 <input type="text" className='form-control' name="locationLongitude" onChange={handleChange}></input>
-            </div>
+        </div>
 
-            <div className="mb-3 pb-1">
-                <label className="form-label">Location Latittude</label>
+        <div className="mb-3 pb-1">
+                <label htmlFor="locationLatitude" className="form-label">Location Latittude</label>
                 <input type="text" className='form-control' name="locationLatitude" onChange={handleChange}></input>
-            </div>
+        </div>
+            
+            <div className="mb-3">
+                <label htmlFor="image" className="form-label"> Upload Image:</label>
+                <input type="file" className="form-control" accept="image/*" onChange={handleImageChange}
+                />
+              </div>
+
+              <div className="mb-3">
+                <label className="form-label">Preview Image:</label>
+                <div className="imagesized" >
+                {formData.image && (
+                  <img src={URL.createObjectURL(formData.image)} alt="Preview" name ="image" id = "image" className="img-fluid" style={{ width: 629, height: 345 }} />
+                )}
+                </div>
+              </div>
 
             <div className="mb-3 pb-1">
                 <button onClick={ () => props.setIsCreateRecord(false) } className="btn btn-secondary me-2">Cancel</button>
