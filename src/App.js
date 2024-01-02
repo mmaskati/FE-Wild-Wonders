@@ -27,7 +27,9 @@ import About from './components/page/About';
 import AdminUserList from './components/admin/UserList';
 import SpeciesList from "./components/scientist/SpeciesList";
 
-const passToken = { headers: { "Authorization": "Bearer " + localStorage.getItem("token")}};
+const passToken =() => { 
+   return { headers: { "Authorization": "Bearer " + localStorage.getItem("token")}};
+}
 
 library.add(faUser, faPencil, faTrash, faUserPlus, faStar, faWarning);
 function App() {
@@ -117,6 +119,7 @@ const onLogoutHandler = (e) => {
   navigate('/');
 }
 const loginHandler = (credentials) => {
+  // setIsAuth(true) // need to remove for test only
   Axios.post("auth/signin", credentials)
   .then(( response ) => {
     console.log(response.data.token);
@@ -134,13 +137,13 @@ const loginHandler = (credentials) => {
         navigate('/');
         fetchUserData(user.id);
       // console.log(isAuth);
-      // console.log(user);
+      console.log("User: >>>>>>>>>>>>>>>>>>.",user);
       user ? setIsAuth(true) : setIsAuth(false);
-      user ? setUser(true) : setUser(null);
+      user ? setUser(user) : setUser(null);
 
       }
       
-console.log(isAuth);
+  console.log(isAuth);
 
     }
   })
@@ -157,7 +160,8 @@ console.log(isAuth);
 const [isEdit, setIsEdit] = useState(false); //this is used for Edit
 
 const editView = (id) => {
-  Axios.get(`user/edit?id=${id}`, passToken)
+  console.log("passToken",passToken());
+  Axios.get(`user/edit?id=${id}`, passToken())
   .then( ( res ) => {
       console.log("Loaded User Profile  Information");
       console.log(res.data.user);
@@ -171,7 +175,7 @@ const editView = (id) => {
 }
 
 const updateUserProfile = (user) => {
-  Axios.post("user/profile",user, passToken)
+  Axios.post("user/profile",user, passToken())
   .then(( res ) => {
       console.log("User Profile Updated Successfully!");
       setIsEdit(false);
@@ -198,18 +202,18 @@ return (
           <>
             { userData.userType <= 3 ? <>
                       <Link to="/" className="btn btn-bd-primary me-2">Home</Link> 
-                      <Link to="/record" onClick={ () => setIsCreateRecord(false)} className="btn btn-light me-2">Records</Link>
+                      <Link to="/record" onClick={ () => {setIsCreateRecord(false); setIsEditRecord(false)}} className="btn btn-light me-2">Records</Link>
                       
                </> : <></> }
             
-            { userData.userType <= 2 ? <Link to="/species" className="btn btn-success me-2">Species List</Link> : <></> }
+            { userData.userType <= 2 ? <Link to="/species" className="btn btn-success me-2">Species</Link> : <></> }
             
             { userData.userType == 1 ? <>
               <Link to="/map" className="btn btn-outline-primary me-2">Map</Link> 
               <Link to="/user" className="btn btn-outline-primary me-2">Users</Link></>
              : <></> }
             
-            <Link to="/profile" className="profile_img btn me-2" onClick={() => editView(userData._id)}><img className="img_profile" src="./logo512.png" referrerPolicy="no-referrer" alt="Profile Photo" height="35px" /></Link>
+            <Link to="/profile" className="profile_img btn me-2" onClick={() => { editView(userData._id) }}><img className="img_profile" src="./logo512.png" referrerPolicy="no-referrer" alt="Profile Photo" height="35px" /></Link>
             <Link to="/logout" className="btn btn-outline-danger" onClick={onLogoutHandler}>Logout</Link>
           </>
           :
@@ -258,7 +262,7 @@ return (
       <Route path="/map" element={ isAuth ? <Leaflet /> : <Signin login={loginHandler} warning={warning} /> }></Route>
       <Route path="/species" element={ isAuth && userData.userType<=2 ? <SpeciesList /> : <Access /> }></Route>
       <Route path="/record" element={ isAuth ? <RecordList isCreateRecord={isCreateRecord} setIsCreateRecord={setIsCreateRecord} isEditRecord={isEditRecord} setIsEditRecord={setIsEditRecord} /> : <Signin login={loginHandler} warning={warning} /> }></Route>
-      <Route path="/profile" element={ isAuth && isEdit ? <Profile user={userData} updateUserProfile={updateUserProfile} isEdit={setIsEdit} /> : <Access /> }></Route>
+      <Route path="/profile" element={ isAuth && isEdit? <Profile user={userData} updateUserProfile={updateUserProfile} isEdit={setIsEdit} /> : <Access /> }></Route>
       <Route path="/user" element={ isAuth && userData.userType==1 ? <AdminUserList /> : <Access /> }></Route>
 
     </Routes>
