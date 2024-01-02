@@ -4,9 +4,10 @@ import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import Axios from 'axios'; //AJAX functionality for React (npm i axios)
 import Record from './Record';
-import RecordCreateForm from './RecordCreateForm';
+// import RecordCreateForm from './RecordCreateForm';
 import RecordEditForm from './RecordEditForm';
 // import RecordCreateForm from '../sightseer/RecordFormCreate';
+import RecordCreateForm from '../sightseer/SightseerForm';
 // import RecordEditForm from './RecordEditForm';
 
 export default function RecordList(props) {
