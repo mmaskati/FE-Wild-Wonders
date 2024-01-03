@@ -168,7 +168,6 @@ const handleImageChange = (e) => {
 
     const record = {...newRecord};
     record[attributeToChange] = newValue;
-
   
     setImage(file);
 
@@ -179,7 +178,6 @@ const handleImageChange = (e) => {
       setPreview(reader.result);
     };
   
-
     if (file && file.name) {
         EXIF.getData(file, function() {
           var exifData = EXIF.pretty(this);
