@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -6,7 +6,9 @@ export default function SpeciesCreateForm(props) {
 
 const [newSpecies , setnewSpecies] = useState({});
 
-const [searchSpecies , setSearchSpecies] = useState("");
+const [searchResults, setSearchResults] = useState([]);
+
+const [searchAllResults, setSearchAllResults] = useState("");
 
 const handleChangeSpecies = (event) => { 
     const attributeToChange = event.target.name;
@@ -31,38 +33,42 @@ const handleSubmitSpecies = (event) => {
     event.target.reset(); //clear the form
 }
 
-//the API call for Animals
-// const request = require("request");
-// var name = 'cheetah';
-// request.get({
-//     url: 'https://api.api-ninjas.com/v1/animals?name=' + name,
-//     headers: {
-//       'X-Api-Key': ''
-//     },
-//   }, function(error, response, body) {
-//     if(error) return console.error('Request failed:', error);
-//     else if(response.statusCode != 200) return console.error('Error:', response.statusCode, body.toString('utf8'));
-//     else console.log(body)
-//   });
+const handleSearchSubmit = (event) => {
+  event.preventDefault();
 
-function searchedFor(searched){
-let options = {
-method: 'GET',
-headers: { 'x-api-key': 'SaITidZ/aY3VXro/aa0biA==0e4EFYKwrghqStOC' }
+  setSearchAllResults("");
+
+  console.log("searchValue",event.target.elements.searchValue.value)
+  const searchValue = event.target.elements.searchValue.value;
+  searchedFor(searchValue);
+};
+
+function searchedFor(searched) {
+  let options = {
+    method: 'GET',
+    headers: { 'x-api-key': 'SaITidZ/aY3VXro/aa0biA==0e4EFYKwrghqStOC' },
+  };
+
+  let url = 'https://api.api-ninjas.com/v1/animals?name=' + searched;
+
+  fetch(url, options)
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data); //data from API
+      setSearchResults(data); // Update searchResults state
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 }
 
-let url = 'https://api.api-ninjas.com/v1/animals?name=' + searched
+function populateFields(selectedButton){
 
-fetch(url,options)
-.then(res => res.json()) // parse response as JSON
-.then(data => {
-    console.log(data)
-    setSearchSpecies(data);
-})
-.catch(err => {
-    console.log(`error ${err}`)
-}); 
 }
+
+const allSearchResults = searchResults.map((result, index) => (
+  <><button className="btn btn-sm btn-primary" onClick={ () => populateFields(result) } key={index}>{result.name}</button><br /></>
+))
 
 return (
 <>
@@ -107,9 +113,7 @@ return (
   <span htmlFor="location" className="input-group-text bg-warning text-dark">Known Location(s)</span>
     <input className="form-control" id="location" name="location" type="text" onChange={handleChangeSpecies} required />
   </div>
-
-
-<div className="input-group input-group-sm mb-3">
+  <div className="input-group input-group-sm mb-3">
   <span htmlFor="distinctive_feature" className="input-group-text bg-success">Distinctive Feature(s)</span>
     <input className="form-control" id="distinctive_feature" name="distinctive_feature" type="text" onChange={handleChangeSpecies} />
   </div>
@@ -164,11 +168,16 @@ return (
 <div className="col-md-6 col-lg-6">
 
 <div>
-    <form className="d-flex mb-3" role="search">
-        <input className="form-control me-2" type="search" placeholder="Search for a Species" aria-label="Search" />
-        <button onClick={ () => searchedFor("Whale")} className="btn btn-outline-success" type="submit">Search</button>
+    <form className="d-flex mb-3" role="search" onSubmit={handleSearchSubmit}>
+        <input className="form-control me-2" type="search" id="searchValue" name="searchValue" placeholder="Search for a Species" aria-label="Search" />
+        <button  className="btn btn-outline-success" type="submit">Search</button>
     </form>
-    <div><code>{searchSpecies}</code></div>
+    <div>
+    <ul>
+      {searchAllResults != null ? searchAllResults : "No data" }
+    </ul>
+
+    </div>
 </div>
 
 <p>Enhance your Species Surveys by specifying detailed creature characteristics!</p>
@@ -191,7 +200,6 @@ return (
 </div>
 
 </div>
-
 
 </div>
 

@@ -11,34 +11,36 @@ const Leaflet = () => {
     const position = [26.25, 50.50];
     const mapStyle = { height: "80vh" };
 
-    const fetchData = async () => {
-        try {
-            const response = await Axios.get("record/index");
-            const newMarkers = response.data.records.map(record => {
-                const position = {
-                    lng: parseFloat(record.locationLongitude),
-                    lat: parseFloat(record.locationLatitude),
-                };
-
-                const marker = L.marker(position);
-                const popupContent = `
-                    <div>
-                        <img src="${record.image}" alt="Image" style="width: 145px;">
-                        <p>${record.species.name}</p>
-                    </div>
-                `;
-                marker.bindPopup(popupContent);
-
-                return marker;
-            });
-
-            setMarkers(newMarkers);
-        } catch (error) {
-            console.error("Error fetching data:", error);
-        }
-    };
-
     useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await Axios.get("record/index");
+                const newMarkers = response.data.records.map(record => {
+                    const position = {
+                        lng: parseFloat(record.locationLongitude),
+                        lat: parseFloat(record.locationLatitude),
+                    };
+
+                    const marker = L.marker(position);
+                    const popupContent = `
+                        <div>
+                            <img src="${record.image}" alt="Image" style="width: 80px;">
+                            <p>${record.species.name}</p>
+                        </div>
+                    `;
+                    marker.bindPopup(popupContent);
+
+                    // Return an object containing both marker and position
+                    return { marker, position };
+                });
+
+                setMarkers(newMarkers);
+                
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        };
+
         fetchData();
     }, []); // Empty dependency array ensures that this effect runs once after mount
 
@@ -49,9 +51,10 @@ const Leaflet = () => {
                     url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 />
+                {/* Pass the markers array directly */}
                 <MarkerCluster markers={markers} />
             </MapContainer>
-            <div>clearLayers and addLayers used. Look at the console to check performance</div>
+            <p className="text-white">Some text goes here</p>
         </>
     );
 };

@@ -7,51 +7,30 @@ import { useMap } from "react-leaflet";
 
 const markerClusters = L.markerClusterGroup();
 const customIcon = new L.Icon({
-  iconUrl: "https://unpkg.com/leaflet@1.5.1/dist/images/marker-icon.png",
+  iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
   iconSize: [25, 41]
 });
 
-const MarkerCluster = ({ markers, addMarkers }) => {
-  const map  = useMap();
+const MarkerCluster = ({ markers }) => {
+  const map = useMap();
 
   useEffect(() => {
-    markerClusters.clearLayers();
-    markers.forEach(({ position }) =>
-      L.marker(new L.LatLng(position.lat, position.lng), {
-        icon: customIcon
-      }).addTo(markerClusters)
-    );
+    console.log("Received markers:", markers);
 
-    map.addLayer(markerClusters);
-  }, [markers, map]);
-
-//map.on("moveend", onMapMoveEnd);
-  //map.on("moveend", () => {
-    //const start = window.performance.now();
-
-function onMapMoveEnd(event) {
-
-// map.on("moveend", () => {
-
-    addMarkers();
-    const markersToAdd = [];
-    markerClusters.clearLayers();
-    markers.forEach(({ position }) => {
-      const markerToAdd = L.marker(new L.LatLng(position.lat, position.lng), {
-        icon: customIcon
+    // Check if markers array is not empty
+    if (markers.length > 0) {
+      markerClusters.clearLayers();
+      markers.forEach(({ marker, position }) => {
+        // Check if marker is defined before attempting to add it
+        if (marker) {
+          marker.setLatLng(new L.LatLng(position.lat, position.lng));
+          marker.addTo(markerClusters);
+        }
       });
 
-      if (markerToAdd !== undefined) {
-        markersToAdd.push(markerToAdd);
-      }
-    });
-
-    markerClusters.addLayers(markersToAdd);
-    //const end = window.performance.now();
-    //console.log(`Time of adding markers and clusters: ${end - start}ms`);
-  }
-  //);
-
+      map.addLayer(markerClusters);
+    }
+  }, [markers, map]);
 
   return null;
 };

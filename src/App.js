@@ -17,7 +17,7 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { faUser, faPencil, faTrash, faUserPlus, faStar, faWarning } from "@fortawesome/free-solid-svg-icons";
 //SightseerForm - Wael
 import RecordList from "./components/record/RecordList";
-import RecordCreateForm from "./components/record/RecordCreateForm";
+// import RecordCreateForm from "./components/record/RecordCreateForm";
 //Mazen - adding Scientist View
 import Dashboard from './components/page/Dashboard';
 // import Map from './components/scientist/Map';
@@ -197,7 +197,7 @@ return (
 <nav className="container-fluid p-0">
     <header className="p-3 text-bg-dark">
       <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-      <img class="me-3" src="./logo.PNG" alt="" width="48" height="38"/>
+      <img className="me-3" src="./logo.PNG" alt="" width="48" height="38"/>
 
         <a href="/" className="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
            <span className="fs-2">Wild Wonders</span>

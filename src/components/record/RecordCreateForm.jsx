@@ -270,13 +270,13 @@ const handleImageChange = (e) => {
             <div className="col-sm-6">
                 <div className="mb-3 pb-1">
                     <label htmlFor="locationLongitude" className="form-label">Longitude</label>
-                    <input type="number" className='form-control' id="locationLongitude" name="locationLongitude" value={newLong} onChange={handleChange} required readonly/>
+                    <input type="number" className='form-control' id="locationLongitude" name="locationLongitude" value={newLong} onChange={handleChange} required readOnly/>
                 </div>
             </div>
             <div className="col-sm-6">
                 <div className="mb-3 pb-1">
                     <label htmlFor="locationLatitude" className="form-label">Latitude</label>
-                    <input type="number" className='form-control' id="locationLatitude" name="locationLatitude" value={newLat} onChange={handleChange} required readonly/>
+                    <input type="number" className='form-control' id="locationLatitude" name="locationLatitude" value={newLat} onChange={handleChange} required readOnly/>
                 </div>
             </div>
             </div>
