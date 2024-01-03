@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-
+import {  useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 // import { Link } from "react-router-dom";
 
 export default function UserEditForm(props) {
+
+const navigate = useNavigate();
 
 const [user, setEditUser] = useState(props.user);
 
@@ -23,7 +25,9 @@ const handleChange = (event) => {
 const handleSubmit = (event) => {
     event.preventDefault();
     props.updateUserProfile(user);
-    event.target.reset(); //clear the form
+    //event.target.reset(); //clear the form
+    props.setIsEdit(false);
+    navigate('/');
 }
 
 return (
@@ -52,7 +56,7 @@ return (
 
 <div className="mb-3 pb-1">
     <label htmlFor="password" className="form-label">Reset Password (Optional)</label>
-    <input className="form-control" id="password" name="password" type="text" onChange={handleChange} value={user.password} />
+    <input className="form-control" id="password" name="password" type="password" onChange={handleChange} value={null} />
 </div>
 
 {/* <div className="mb-3 pb-1">
@@ -77,7 +81,8 @@ return (
 
   <br />
   {/* <div className="w-100"> */}
-  <button onClick={ () => props.isEdit(false) } className="btn btn-secondary me-2">Cancel</button> <button className="btn btn-warning" type="submit">Update</button>
+  {/* <button onClick={ () => props.setIsEdit(false) } className="btn btn-secondary me-2">Cancel</button> */}
+   <button className="btn btn-warning" type="submit">Update</button>
   {/* </div> */}
 </form>
 

@@ -9,7 +9,7 @@ import UserEditForm from './UserEditForm';
 export default function UserList(props) {
 
 const [users, setUsers] = useState([]);
-const [isEdit, setIsEdit] = useState(false); //this is used for Edit
+//const [isUserEdit, setIsUserEdit] = useState(false); //this is used for Edit
 const [currentUser, setCurrentUser] = useState({}); //this is used to set the content for the Edit form
 
 const passToken = { headers: { "Authorization": "Bearer " + localStorage.getItem("token")}};
@@ -52,7 +52,7 @@ const editView = (id) => {
       console.log("Loaded User Information");
       console.log(res.data.user);
       let user = res.data.user;
-      setIsEdit(true);
+      props.setIsUserEdit(true);
       setCurrentUser(user);
   })
   .catch((error) => {
@@ -68,7 +68,7 @@ const updateUser = (user) => {
       console.log("User Updated Successfully!");
       console.log(res);
       loadUserList();
-      setIsEdit(false); //reset to hide the form again
+      props.setIsUserEdit(false); //reset to hide the form again
   })
   .catch((error) => {
       console.log("Error Updating User Information: ");
@@ -101,8 +101,8 @@ const allUsers = users.map((user, index) => (
 <>
 <div className="container py-5 mb-5">
 
-{(isEdit) ? 
-    <UserEditForm key={currentUser._id} user={currentUser} updateUser={updateUser} isEdit={setIsEdit} /> 
+{(props.isUserEdit) ? 
+    <UserEditForm key={currentUser._id} user={currentUser} updateUser={updateUser} isUserEdit={props.isUserEdit} setIsUserEdit={props.setIsUserEdit} /> 
     : 
     // <UserCreateForm addUser={addUser} /> 
 <>
