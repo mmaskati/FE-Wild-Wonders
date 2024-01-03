@@ -59,7 +59,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - PrimeReact
 - Exif.js
 - Cloudinary
-- cloudinary-react
+- Cloudinary-react
+- dotenv
 
 ## To Run the Web App:
 
