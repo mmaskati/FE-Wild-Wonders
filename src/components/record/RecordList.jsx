@@ -142,7 +142,7 @@ return (
         <th>Note(s)</th>
         <th>Actions(s)</th>
         </tr>
-            {allRecord}
+            { allRecord != null ? allRecord : "No data" }
         </tbody>
     </table>
 </>
