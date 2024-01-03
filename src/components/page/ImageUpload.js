@@ -29,6 +29,8 @@ console.log(process.env.REACT_APP_CLOUDINARY_CLOUD_NAME);
       );
       const res = await response.json();
       setUrl(res.public_id);
+      
+      console.log("Image Public Id =" + res.public_id);
       setLoading(false);
     } catch (error) {
       setLoading(false);
