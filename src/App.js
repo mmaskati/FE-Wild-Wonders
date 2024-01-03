@@ -197,6 +197,8 @@ return (
 <nav className="container-fluid p-0">
     <header className="p-3 text-bg-dark">
       <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+      <img class="me-3" src="./logo.PNG" alt="" width="48" height="38"/>
+
         <a href="/" className="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
            <span className="fs-2">Wild Wonders</span>
         </a>
