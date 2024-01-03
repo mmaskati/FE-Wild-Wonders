@@ -78,3 +78,12 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
+## FrameWorks 
+
+![7](https://res.cloudinary.com/dg7fvab8r/image/upload/v1704297367/Untitled_7_yogzf3.png)
+![6](https://res.cloudinary.com/dg7fvab8r/image/upload/v1704297945/Untitled_pjnwzp.png)
+![5](https://res.cloudinary.com/dg7fvab8r/image/upload/v1704297947/Untitled_6_qim8t6.png)
+![4](https://res.cloudinary.com/dg7fvab8r/image/upload/v1704297947/Untitled_5_bu2ymh.png)
+![3](https://res.cloudinary.com/dg7fvab8r/image/upload/v1704297946/Untitled_3_we5cbk.png)
+![2](https://res.cloudinary.com/dg7fvab8r/image/upload/v1704297946/Untitled_4_nzfltc.png)
+![1](https://res.cloudinary.com/dg7fvab8r/image/upload/v1704297946/Untitled_2_nlu6dd.png)
