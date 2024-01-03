@@ -5,6 +5,21 @@ import EXIF from 'exif-js';
 
 export default function RecordCreateForm(props) {
 
+// const RecordForm = () => {
+//     const [formData, setFormData] = useState({
+//         user: props.userID,
+//         species: null,
+//         date: '',
+//         time: '',
+//         location: '',
+//         locationLongitude: '',
+//         locationLatitude: '',
+//         image: null,
+//         notes: '',
+//         quantity: '',
+//     });
+// }
+
 //the API call for Animals
 
 // const request = require("request");
@@ -40,7 +55,8 @@ const [species, setSpecies] = useState([]);
 
 useEffect(() => {
     //call API
-    loadSpeciesList();    
+    loadSpeciesList(); 
+       
 },[]);
 
 //for record form
@@ -90,7 +106,7 @@ const handleSpeciesChange = (event) => {
     const attributeToChange = event.target.name;
     const newSpecies = event.target.value;
 
-    console.log(newSpecies);
+    //console.log(newSpecies);
 
     setSelectSpecies(newSpecies);
 
@@ -123,9 +139,7 @@ Axios.get(`species/detail?id=${id}`, props.passToken)
 }
 
 // Wael upload image cahnges 
-const [formData, setFormData] = useState({
-    image: null
-})
+const [formData, setFormData] = useState({image: null});
 
 function ConvertDMSToDD(degrees, minutes, seconds, direction) {
     var dd = degrees + minutes/60 + seconds/(60*60);
@@ -139,6 +153,15 @@ function ConvertDMSToDD(degrees, minutes, seconds, direction) {
 const handleImageChange = (e) => {
     const file = e.target.files[0];
     setFormData((prevData) => ({...prevData, image: file,}));
+
+    const attributeToChange = e.target.name;
+    const newValue = e.target.value;
+
+    const LatAttrib = "locationLatitude";
+    const LongAttrib = "locationLongitude";
+
+    const record = {...newRecord};
+    record[attributeToChange] = newValue;
 
     if (file && file.name) {
         EXIF.getData(file, function() {
@@ -154,14 +177,19 @@ const handleImageChange = (e) => {
             //console.log("\nConverting ...\n");
 
             if(lat){
-            console.log("Latitude:" + parseFloat( ConvertDMSToDD(EXIF.getTag(this, "GPSLatitude")[0],EXIF.getTag(this, "GPSLatitude")[1],EXIF.getTag(this, "GPSLatitude")[2]),"N").toFixed(6) );
+            //console.log("Latitude:" + parseFloat( ConvertDMSToDD(EXIF.getTag(this, "GPSLatitude")[0],EXIF.getTag(this, "GPSLatitude")[1],EXIF.getTag(this, "GPSLatitude")[2]),"N").toFixed(6) );
             let parsedlat = parseFloat( ConvertDMSToDD(EXIF.getTag(this, "GPSLatitude")[0],EXIF.getTag(this, "GPSLatitude")[1],EXIF.getTag(this, "GPSLatitude")[2]),"N").toFixed(6);
             setNewLat(parsedlat);
+            //let attributeToChange = {"locationLatitude"};
+            record[LatAttrib] = parsedlat;
+            //setnewRecord(record);
             }
             if(long){
-            console.log("Longitude:" + parseFloat( ConvertDMSToDD(EXIF.getTag(this, "GPSLongitude")[0],EXIF.getTag(this, "GPSLongitude")[1],EXIF.getTag(this, "GPSLongitude")[2]),"E").toFixed(6) );
+            //console.log("Longitude:" + parseFloat( ConvertDMSToDD(EXIF.getTag(this, "GPSLongitude")[0],EXIF.getTag(this, "GPSLongitude")[1],EXIF.getTag(this, "GPSLongitude")[2]),"E").toFixed(6) );
             let parsedlong = parseFloat( ConvertDMSToDD(EXIF.getTag(this, "GPSLongitude")[0],EXIF.getTag(this, "GPSLongitude")[1],EXIF.getTag(this, "GPSLongitude")[2]),"E").toFixed(6);
             setNewLong(parsedlong);
+            record[LongAttrib] = parsedlong;
+            //setnewRecord(record);
             }
 
           } else {
@@ -170,14 +198,12 @@ const handleImageChange = (e) => {
         });
       }
 
-      const attributeToChange = e.target.files[0];
-      const newValue = e.target.value;
-  
-      const record = {...newRecord};
-      record[attributeToChange] = newValue;
-      console.log(record);
-      setnewRecord(record);
+      const UserAttrib = "user";
+      record[UserAttrib] = props.userID;
       
+
+      setnewRecord(record);
+      console.log(record);      
   };
 
 //function to extract data from image using exifjs
@@ -203,7 +229,7 @@ const handleImageChange = (e) => {
   return (
     <div className="container py-1 mb-5">
         <h1>Record a Sighting </h1>
-        <form onSubmit={handleSubmit} autoComplete="false">
+        <form onSubmit={handleSubmit} autoComplete="off">
 
         <div className="row g-5">
 

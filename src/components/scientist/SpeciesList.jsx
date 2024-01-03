@@ -3,13 +3,30 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import Axios from 'axios'; //AJAX functionality for React (npm i axios)
 import Species from './Species';
-// import SpeciesCreateForm from './SpeciesCreateForm';
+import SpeciesCreateForm from './SpeciesCreateForm';
 import SpeciesEditForm from './SpeciesEditForm';
 
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
+import { InputText } from "primereact/inputtext";
+// import "primereact/resources/themes/saga-blue/theme.css";
+// import "primereact/resources/primereact.min.css";
+// import "primeicons/primeicons.css";
 
 export default function SpeciesList() {
+
+const [globalFilter, setGlobalFilter] = useState(null);
+
+const header = (
+    <div className="table-header">
+        <h5>Species List</h5>
+        <InputText
+            type="search"
+            onInput={(e) => setGlobalFilter(e.target.value)}
+            placeholder="Search"
+        />
+    </div>
+);
 
 const [species, setSpecies] = useState([]); //this is used for Create
 const [isEdit, setIsEdit] = useState(false); //this is used for Edit
@@ -103,9 +120,17 @@ const allSpecies = species.map((specie, index) => (
 </tr>    
 ))
 
+let speciesArray;
+speciesArray = [];
+
 const allDataSpecies = species.map((specie, index) => (
-{...specie}
+//{...specie}
+
+speciesArray.push({...specie})
+
     ))
+
+console.log(speciesArray);
 
 return (
 <>
@@ -136,18 +161,24 @@ return (
         </tbody>
     </table>
 
-    <DataTable value={allDataSpecies} paginator rows={10} showGridlines removableSort>
-        <Column field="name" sortable header="Name"></Column>
-        <Column field="characteristics.common_name" sortable header="Common"></Column>
-        <Column field="characteristics.speciestype" sortable header="Type"></Column>
-        <Column field="characteristics.weight" sortable header="Weight"></Column>
-        <Column field="characteristics.length" sortable header="Length"></Column>
-        <Column field="characteristics.color" sortable header="Color"></Column>
-        <Column field="characteristics.location" sortable header="Location"></Column>
-
-        {/* <Column field="notes" sortable header="Notes"></Column>
-        <Column field="show" sortable header="Show"></Column> */}
-    </DataTable>
+    <DataTable
+                className="table table-striped"
+                value={speciesArray}
+                paginator
+                rows={10}
+                showGridlines
+                removableSort
+                globalFilter={globalFilter}
+                header={header}
+            >
+                <Column field="name" sortable header="Name"></Column>
+                <Column field="characteristics.common_name" sortable header="Common Name"></Column>
+                <Column field="characteristics.speciestype" sortable header="Type"></Column>
+                <Column field="characteristics.weight" sortable header="Weight"></Column>
+                <Column field="characteristics.length" sortable header="Length"></Column>
+                <Column field="characteristics.color" sortable header="Color"></Column>
+                <Column field="characteristics.location" sortable header="Location"></Column>
+            </DataTable>
 
 </>
 }

@@ -69,7 +69,7 @@ return (
 
   <br />
   {/* <div className="w-100"> */}
-  <button onClick={ () => props.isEdit(false) } className="btn btn-secondary me-2">Cancel</button> <button className="btn btn-warning" type="submit">Update</button>
+  <button onClick={ () => props.setIsUserEdit(false) } className="btn btn-secondary me-2">Cancel</button> <button className="btn btn-warning" type="submit">Update</button>
   {/* </div> */}
 </form>
 

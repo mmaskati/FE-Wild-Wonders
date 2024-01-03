@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, Link, useNavigate } from "react-router-dom";
+// import { Routes, Route, Link, useNavigate } from "react-router-dom";
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import Axios from 'axios'; //AJAX functionality for React (npm i axios)
@@ -11,7 +11,6 @@ import RecordCreateForm from '../sightseer/SightseerForm';
 // import RecordEditForm from './RecordEditForm';
 
 export default function RecordList(props) {
-
 const [records, setRecord] = useState([]); //this is used for Create
 const [currentRecord, setCurrentRecord] = useState({}); //this is used to set the content for the Edit form
 
@@ -115,13 +114,13 @@ return (
 
     {(props.isCreateRecord) ?
     <>
-    <RecordCreateForm passToken={passToken} addRecord={addRecord} isCreateRecord={props.isCreateRecord} setIsCreateRecord={props.setIsCreateRecord } />
+    <RecordCreateForm userID={props.userID} passToken={passToken} addRecord={addRecord} isCreateRecord={props.isCreateRecord} setIsCreateRecord={props.setIsCreateRecord } />
     </>
         : 
     
     (props.isEditRecord) ?
         <>
-        <RecordEditForm key={currentRecord._id} record={currentRecord} editView={editView} updateRecord={updateRecord} isEditRecord={props.isEditRecord} setIsEditRecord={props.setIsEditRecord} />
+        <RecordEditForm userID={props.userID} key={currentRecord._id} record={currentRecord} editView={editView} updateRecord={updateRecord} isEditRecord={props.isEditRecord} setIsEditRecord={props.setIsEditRecord} />
         </>
     :
     <>
