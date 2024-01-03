@@ -112,6 +112,7 @@ return (
   <div className="input-group mb-3">
     <span htmlFor="note" className="form-label"> Notes: </span>
       <textarea className ="form-control" id="note" name="note" onChange={handleChangeSpecies} >
+      {specie.notes}
       </textarea>
   </div>
 
