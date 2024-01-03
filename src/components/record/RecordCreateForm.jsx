@@ -3,6 +3,8 @@ import Axios from 'axios';
 
 import EXIF from 'exif-js';
 
+import ImageUpload from '../../components/page/ImageUpload';
+
 export default function RecordCreateForm(props) {
 
 // const RecordForm = () => {
@@ -89,6 +91,10 @@ const [newRecord , setnewRecord] = useState({});
 const[newLat, setNewLat] = useState("");
 const[newLong, setNewLong] = useState("");
 
+const [image, setImage] = useState(null);
+const [preview, setPreview] = useState(null);
+const [loading, setLoading] = useState(false);
+
 const handleChange = (event) => { 
     const attributeToChange = event.target.name;
     const newValue = event.target.value;
@@ -162,7 +168,16 @@ const handleImageChange = (e) => {
 
     const record = {...newRecord};
     record[attributeToChange] = newValue;
+  
+    setImage(file);
 
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    reader.onload = () => {
+      setPreview(reader.result);
+    };
+  
     if (file && file.name) {
         EXIF.getData(file, function() {
           var exifData = EXIF.pretty(this);
@@ -300,28 +315,30 @@ const handleImageChange = (e) => {
             <div className="col-sm-6">
                 <div className="mb-3 pb-1">
                     <label htmlFor="locationLongitude" className="form-label">Longitude</label>
-                    <input type="number" className='form-control' id="locationLongitude" name="locationLongitude" value={newLong} onChange={handleChange} required />
+                    <input type="number" className='form-control' id="locationLongitude" name="locationLongitude" value={newLong} onChange={handleChange}  />
                 </div>
             </div>
             <div className="col-sm-6">
                 <div className="mb-3 pb-1">
                     <label htmlFor="locationLatitude" className="form-label">Latitude</label>
-                    <input type="number" className='form-control' id="locationLatitude" name="locationLatitude" value={newLat} onChange={handleChange} required />
+                    <input type="number" className='form-control' id="locationLatitude" name="locationLatitude" value={newLat} onChange={handleChange}  />
                 </div>
             </div>
         </div>
             
             <div className="mb-3">
-                <label htmlFor="image" className="form-label"> Upload Image:</label>
-                <input type="file" name="image" id="image" className="form-control" accept="image/*" onChange={handleImageChange} required />
+                {/* <label htmlFor="image" className="form-label"> Upload Image:</label>
+                <input type="file" name="image" id="image" className="form-control" accept="image/*" onChange={handleImageChange} required /> */}
+                <ImageUpload handleImageChange={handleImageChange} image={image} setImage={setImage}/>
               </div>
 
               <div className="mb-3">
                 <label className="form-label">Preview Image:</label>
                 <div className="imagesized" >
-                {formData.image && (
+                {/* {formData.image && (
                   <img src={URL.createObjectURL(formData.image)} alt="Preview" className="img-fluid" />
-                )}
+                )} */}
+                {preview && <img src={preview} alt="preview" className="w-full" style={{width: 300, height:300}}/>}
                 </div>
               </div>
 
