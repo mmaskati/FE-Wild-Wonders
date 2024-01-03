@@ -22,37 +22,6 @@ export default function RecordCreateForm(props) {
 //     });
 // }
 
-//the API call for Animals
-
-// const request = require("request");
-// var name = 'cheetah';
-// request.get({
-//     url: 'https://api.api-ninjas.com/v1/animals?name=' + name,
-//     headers: {
-//       'X-Api-Key': ''
-//     },
-//   }, function(error, response, body) {
-//     if(error) return console.error('Request failed:', error);
-//     else if(response.statusCode != 200) return console.error('Error:', response.statusCode, body.toString('utf8'));
-//     else console.log(body)
-//   });
-
-// let options = {
-// method: 'GET',
-// headers: { 'x-api-key': 'SaITidZ/aY3VXro/aa0biA==0e4EFYKwrghqStOC' }
-// }
-
-// let url = 'https://api.api-ninjas.com/v1/animals?name=cheetah'
-
-// fetch(url,options)
-// .then(res => res.json()) // parse response as JSON
-// .then(data => {
-//     console.log(data)
-// })
-// .catch(err => {
-//     console.log(`error ${err}`)
-// }); 
-
 const [species, setSpecies] = useState([]);
 
 useEffect(() => {
@@ -72,19 +41,6 @@ setSpecies(response.data.species);
 console.log(error);
 })
 };
-
-// const addSpecies = (species) => {
-// console.log(species);
-// Axios.post("species/add", species, props.passToken)
-// .then((response) => { 
-// console.log("Species Added Successfully!");
-// console.log(response);
-// loadSpeciesList();
-// })
-// .catch((error) => {
-// console.error("Error Adding Specie: " + error);
-// })
-// }
 
 const [newRecord , setnewRecord] = useState({});
 
@@ -224,8 +180,6 @@ const handleImageChange = (e) => {
       const UserAttrib = "user";
       record[UserAttrib] = props.userID;
       
-      
-
       setnewRecord(record);
       console.log(record);      
   };

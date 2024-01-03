@@ -101,7 +101,17 @@ Axios.get(`record/delete?id=${id}`, passToken)
 const allRecord = records.map((record, index) => (
 <tr key={index}>
     {/* <Record name={record.name} emailAddress={record.emailAddress} index={index} /> */}
-    <Record {...record} index={index+1} editView={editView} deleteRecord={deleteRecord} isEditRecord={props.isEditRecord} setIsEditRecord={props.setIsEditRecord} />
+    { props.user.userType == 3 ? ( record.user == props.user._id ? 
+    <> 
+        <Record {...record} index={index+1} editView={editView} deleteRecord={deleteRecord} isEditRecord={props.isEditRecord} setIsEditRecord={props.setIsEditRecord} />
+    </>
+    :
+    <><br /><p className="text-white">  End of Contribution List</p></>
+    ) : 
+    <> 
+        <Record {...record} index={index+1} editView={editView} deleteRecord={deleteRecord} isEditRecord={props.isEditRecord} setIsEditRecord={props.setIsEditRecord} />
+    </>
+    }
 </tr>    
 ))
 

@@ -265,7 +265,7 @@ return (
       <Route path="/" element={ isAuth ? <><Dashboard userData={userData} /> </> : <Attempt /> }></Route>
       <Route path="/map" element={ isAuth ? <Attempt /> : <Signin login={loginHandler} warning={warning} /> }></Route>
       <Route path="/species" element={ isAuth && userData.userType<=2 ? <SpeciesList userID={userData._id} isCreateSpecies={isCreateSpecies} setIsCreateSpecies={setIsCreateSpecies} isEditSpecies={isEditSpecies} setIsEditSpecies={setIsEditSpecies} /> : <Access /> }></Route>
-      <Route path="/record" element={ isAuth ? <RecordList userID={userData._id} isCreateRecord={isCreateRecord} setIsCreateRecord={setIsCreateRecord} isEditRecord={isEditRecord} setIsEditRecord={setIsEditRecord} /> : <Signin login={loginHandler} warning={warning} /> }></Route>
+      <Route path="/record" element={ isAuth ? <RecordList user={userData} userID={userData._id} isCreateRecord={isCreateRecord} setIsCreateRecord={setIsCreateRecord} isEditRecord={isEditRecord} setIsEditRecord={setIsEditRecord} /> : <Signin login={loginHandler} warning={warning} /> }></Route>
       <Route path="/profile" element={ isAuth && isEdit? <Profile user={userData} updateUserProfile={updateUserProfile} setIsEdit={setIsEdit} /> : <Access /> }></Route>
       <Route path="/user" element={ isAuth && userData.userType==1 ? <AdminUserList setIsUserEdit={setIsUserEdit} isUserEdit={isUserEdit} /> : <Access /> }></Route>
 

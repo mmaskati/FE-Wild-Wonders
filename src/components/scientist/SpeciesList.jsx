@@ -141,7 +141,7 @@ return (
 
 {(props.isCreateSpecies) ? 
     <>
-        <SpeciesCreateForm userID={props.userID} passToken={passToken} addSpecies={addSpecies} isCreateSpecies={props.isCreateSpecies} setIsEditSpecies={props.setIsCreateSpecies} />
+        <SpeciesCreateForm userID={props.userID} passToken={passToken} addSpecies={addSpecies} isCreateSpecies={props.isCreateSpecies} setIsCreateSpecies={props.setIsCreateSpecies} />
     </>
     :
 
