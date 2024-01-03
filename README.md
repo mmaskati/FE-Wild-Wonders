@@ -58,6 +58,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - Font Awesome for React.js
 - PrimeReact
 - Exif.js
+- Cloudinary
+- cloudinary-react
 
 ## To Run the Web App:
 
