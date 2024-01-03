@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 // import AdvanceImage from "./AdvanceImage";
 
-const ImageUpload = () => {
-  const [image, setImage] = useState(null);
+const ImageUpload = (props) => {
+  // const [image, setImage] = useState(null);
   const [url, setUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [preview, setPreview] = useState(null);
@@ -11,7 +11,7 @@ console.log(process.env.REACT_APP_CLOUDINARY_CLOUD_NAME);
   const uploadImage = async () => {
     setLoading(true);
     const data = new FormData();
-    data.append("file", image);
+    data.append("file", props.image);
     data.append(
       "upload_preset",
       process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET
@@ -37,17 +37,17 @@ console.log(process.env.REACT_APP_CLOUDINARY_CLOUD_NAME);
     }
   };
 
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    setImage(file);
+  // const handleImageChange = (event) => {
+  //   const file = event.target.files[0];
+  //   setImage(file);
 
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
+  //   const reader = new FileReader();
+  //   reader.readAsDataURL(file);
 
-    reader.onload = () => {
-      setPreview(reader.result);
-    };
-  };
+  //   reader.onload = () => {
+  //     setPreview(reader.result);
+  //   };
+  // };
 
   // const handleResetClick = () => {
   //   setPreview(null);
@@ -58,9 +58,9 @@ console.log(process.env.REACT_APP_CLOUDINARY_CLOUD_NAME);
     <div>
        <div className="mb-3">
                 <label htmlFor="image" className="form-label"> Upload Image:</label>
-                <input type="file" name="image" id="image" className="form-control" accept="image/*" onChange={handleImageChange} required />
+                <input type="file" name="image" id="image" className="form-control" accept="image/*" onChange={props.handleImageChange} required />
                 <br/>
-                <button onClick={uploadImage} class="btn btn-primary" disabled={!image}> Upload </button>
+                <button onClick={uploadImage} class="btn btn-primary" disabled={!props.image}> Upload </button>
               </div>
       <div className="mb-3">
         {/* <header className="border-dashed border-2 border-gray-400 py-12 flex flex-col justify-center items-center"> */}
