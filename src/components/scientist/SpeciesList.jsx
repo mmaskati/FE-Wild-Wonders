@@ -6,30 +6,30 @@ import Species from './Species';
 import SpeciesCreateForm from './SpeciesCreateForm';
 import SpeciesEditForm from './SpeciesEditForm';
 
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { InputText } from "primereact/inputtext";
+// import { DataTable } from 'primereact/datatable';
+// import { Column } from 'primereact/column';
+// import { InputText } from "primereact/inputtext";
 // import "primereact/resources/themes/saga-blue/theme.css";
 // import "primereact/resources/primereact.min.css";
 // import "primeicons/primeicons.css";
 
 export default function SpeciesList(props) {
 
-const [globalFilter, setGlobalFilter] = useState();
+// const [globalFilter, setGlobalFilter] = useState(null);
 
-const header = (
-    <div className="table-header">
-        <h5>Species List</h5>
-        <InputText
-            type="search"
-            onInput={(e) => setGlobalFilter(e.target.value)}
-            placeholder="Search"
-        />
-    </div>
-);
+// const header = (
+//     <div className="table-header">
+//         <h5>Species List</h5>
+//         <InputText
+//             type="search"
+//             onInput={(e) => setGlobalFilter(e.target.value)}
+//             placeholder="Search"
+//         />
+//     </div>
+// );
 
 const [species, setSpecies] = useState([]); //this is used for Create
-// const [props.isEditSpeciesSpecies, props.setIsEditSpeciesSpecies] = useState(false); //this is used for Edit
+// const [isEditSpecies, setIsEditSpecies] = useState(false); //this is used for Edit
 const [currentSpecies, setCurrentSpecies] = useState({}); //this is used to set the content for the Edit form
 
 const passToken = { headers: { "Authorization": "Bearer " + localStorage.getItem("token")}};
@@ -141,13 +141,13 @@ return (
 
 {(props.isCreateSpecies) ? 
     <>
-        <SpeciesCreateForm userID={props.userID} passToken={passToken} addSpecies={addSpecies} isCreateSpecies={props.isCreateSpecies} setIsCreateSpecies={props.setIsCreateSpecies} />
+        <SpeciesCreateForm userID={props.userID} passToken={passToken} addSpecies={addSpecies} isCreateSpecies={props.isCreateSpecies} setIsEditSpecies={props.setIsCreateSpecies} />
     </>
     :
 
     (props.isEditSpecies) ? 
         <>
-            <SpeciesEditForm key={currentSpecies._id} specie={currentSpecies} updateSpecies={updateSpecies} isEditSpecies={props.setIsEditSpecies} /> 
+            <SpeciesEditForm key={currentSpecies._id} specie={currentSpecies} updateSpecies={updateSpecies} isEditSpecies={props.isEditSpecies} setIsEditSpecies={props.setIsEditSpecies} /> 
         </>
         : 
     <>   
@@ -168,11 +168,11 @@ return (
             <th>Location</th>
             <th>Actions(s)</th>
         </tr>
-            {allSpecies}
+            { allSpecies != null ? allSpecies : "No data" }
         </tbody>
     </table>
 
-    <DataTable
+    {/* <DataTable
                 className="table table-striped"
                 value={speciesArray}
                 paginator
@@ -189,7 +189,7 @@ return (
                 <Column field="characteristics.length" sortable header="Length"></Column>
                 <Column field="characteristics.color" sortable header="Color"></Column>
                 <Column field="characteristics.location" sortable header="Location"></Column>
-            </DataTable>
+            </DataTable> */}
         </>
 }
 
