@@ -15,7 +15,7 @@ export default function Record(props) {
     <td>{props.location}</td>
     <td>{props.locationLongitude}</td>
     <td>{props.locationLatitude}</td>
-    <td>{props.image}</td>
+    {/* <td>{props.image}</td> */}
     <td>{props.notes}</td>
     <td>
     <button type="button" onClick={() => props.editView(props._id)} className="btn btn-sm btn-warning"><FontAwesomeIcon icon="pencil" /></button> <button type="button" onClick={() => props.deleteRecord(props._id)} className="btn btn-sm btn-danger"><FontAwesomeIcon icon="trash"/></button>

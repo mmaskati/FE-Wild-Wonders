@@ -94,6 +94,7 @@ const[newLong, setNewLong] = useState("");
 const [image, setImage] = useState(null);
 const [preview, setPreview] = useState(null);
 const [loading, setLoading] = useState(false);
+const [url, setUrl] = useState("");
 
 const handleChange = (event) => { 
     const attributeToChange = event.target.name;
@@ -125,7 +126,14 @@ const handleSpeciesChange = (event) => {
 
 const handleSubmit = (event)=>{
     event.preventDefault();
-    props.addRecord(newRecord)
+
+    const record = {...newRecord};
+    const ImageLink = "image";
+    record[ImageLink] = url;
+    setnewRecord(record);
+    console.log(record);
+
+    props.addRecord(record)
 }
 
 const speciesView = (id) => {
@@ -216,6 +224,7 @@ const handleImageChange = (e) => {
       const UserAttrib = "user";
       record[UserAttrib] = props.userID;
       
+      
 
       setnewRecord(record);
       console.log(record);      
@@ -244,11 +253,12 @@ const handleImageChange = (e) => {
   return (
     <div className="container py-1 mb-5">
         <h1>Record a Sighting </h1>
-        <form onSubmit={handleSubmit} autoComplete="off">
+        
 
         <div className="row g-5">
 
         <div className="col-md-6 col-lg-6">
+        <form onSubmit={handleSubmit} autoComplete="off">
             <div className="mb-3 pb-1">
                 <label htmlFor="species" className="form-label">Species</label>
                 
@@ -302,43 +312,45 @@ const handleImageChange = (e) => {
                 <textarea className="form-control" id="notes" name="notes" value={formData.note} onChange={handleChange}></textarea>
             </div>
 
-            <div className="mb-3 pb-1">
-                <button onClick={ () => props.setIsCreateRecord(false) } className="btn btn-secondary me-2">Cancel</button>
-                <input className='btn btn-primary' type="submit" value="Add Record" />
-            </div>
-
-        </div>
-
-        <div className="col-md-6 col-lg-6">
-
-        <div className='row g-3'>
+            <div className='row g-3'>
             <div className="col-sm-6">
                 <div className="mb-3 pb-1">
                     <label htmlFor="locationLongitude" className="form-label">Longitude</label>
-                    <input type="number" className='form-control' id="locationLongitude" name="locationLongitude" value={newLong} onChange={handleChange}  />
+                    <input type="number" className='form-control' id="locationLongitude" name="locationLongitude" value={newLong} onChange={handleChange} required readonly/>
                 </div>
             </div>
             <div className="col-sm-6">
                 <div className="mb-3 pb-1">
                     <label htmlFor="locationLatitude" className="form-label">Latitude</label>
-                    <input type="number" className='form-control' id="locationLatitude" name="locationLatitude" value={newLat} onChange={handleChange}  />
+                    <input type="number" className='form-control' id="locationLatitude" name="locationLatitude" value={newLat} onChange={handleChange} required readonly/>
                 </div>
             </div>
+            </div>
+
+            <div className="mb-3 pb-1">
+                <button onClick={ () => props.setIsCreateRecord(false) } className="btn btn-secondary me-2">Cancel</button>
+                <input className='btn btn-primary' type="submit" value="Add Record" />
+            </div>
+        </form>
         </div>
-            
+
+        <div className="col-md-6 col-lg-6">
+              
+              <ImageUpload handleImageChange={handleImageChange} image={image} setImage={setImage} url={url} setUrl={setUrl} />
             <div className="mb-3">
                 {/* <label htmlFor="image" className="form-label"> Upload Image:</label>
                 <input type="file" name="image" id="image" className="form-control" accept="image/*" onChange={handleImageChange} required /> */}
-                <ImageUpload handleImageChange={handleImageChange} image={image} setImage={setImage}/>
+                <input type="hidden" name="image" id="image" className="form-control" onChange={handleImageChange} value={url} required />
+                
               </div>
 
               <div className="mb-3">
-                <label className="form-label">Preview Image:</label>
-                <div className="imagesized" >
+                {/* <label className="form-label">Preview Image:</label> */}
+                <div >
                 {/* {formData.image && (
                   <img src={URL.createObjectURL(formData.image)} alt="Preview" className="img-fluid" />
                 )} */}
-                {preview && <img src={preview} alt="preview" className="w-full" style={{width: 300, height:300}}/>}
+                {preview && <img src={preview} alt="Preview" className="img-fluid"/>}
                 </div>
               </div>
 
@@ -349,7 +361,7 @@ const handleImageChange = (e) => {
         </div>
 
         </div>
-        </form>
+        
     </div>
   )
 }

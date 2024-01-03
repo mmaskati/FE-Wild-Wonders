@@ -37,6 +37,7 @@ console.log(error);
 
 //create the API for creating the Record
 const addRecord = (record) => {
+    console.log(record)
 Axios.post("record/add", record, passToken) //this is passToken defined earlier
 .then((response) => { 
     console.log("Record Added Successfully!");
@@ -136,7 +137,7 @@ return (
         <th>Location</th>
         <th>Longitude</th>
         <th>Latitude</th>
-        <th>Image</th>
+        {/* <th>Image</th> */}
         <th>Note(s)</th>
         <th>Actions(s)</th>
         </tr>
