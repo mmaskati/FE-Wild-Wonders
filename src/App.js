@@ -22,6 +22,7 @@ import RecordCreateForm from "./components/record/RecordCreateForm";
 import Dashboard from './components/page/Dashboard';
 // import Map from './components/scientist/Map';
 import Leaflet from './components/map/Leaflet';
+import Attempt from './components/map/Attempt';
 import About from './components/page/About';
 //Admin User
 import AdminUserList from './components/admin/UserList';
@@ -44,6 +45,7 @@ const [warning, setWarning] = useState('');
 // const resetValue=false;
 const [isCreateRecord, setIsCreateRecord] = useState(false); //this is used for Edit
 const [isEditRecord, setIsEditRecord] = useState(false);
+const [isUserEdit, setIsUserEdit] = useState(false);
 
 const navigate = useNavigate();
 // const [showModal, setShowModal] = useState("none");
@@ -137,13 +139,13 @@ const loginHandler = (credentials) => {
         navigate('/');
         fetchUserData(user.id);
       // console.log(isAuth);
-      console.log("User: >>>>>>>>>>>>>>>>>>.",user);
+      // console.log("User: >>>>>>>>>>>>>>>>>>.",user);
       user ? setIsAuth(true) : setIsAuth(false);
       user ? setUser(user) : setUser(null);
 
       }
       
-  console.log(isAuth);
+  //console.log(isAuth);
 
     }
   })
@@ -209,8 +211,8 @@ return (
             { userData.userType <= 2 ? <Link to="/species" className="btn btn-success me-2">Species</Link> : <></> }
             
             { userData.userType == 1 ? <>
-              <Link to="/map" className="btn btn-outline-primary me-2">Map</Link> 
-              <Link to="/user" className="btn btn-outline-primary me-2">Users</Link></>
+              <Link to="/map" className="btn btn-primary me-2">Map</Link> 
+              <Link to="/user" onClick={ () => { setIsUserEdit(false) }} className="btn btn-bd-primary me-2">Users</Link></>
              : <></> }
             
             <Link to="/profile" className="profile_img btn me-2" onClick={() => { editView(userData._id) }}><img className="img_profile" src="./logo512.png" referrerPolicy="no-referrer" alt="Profile Photo" height="35px" /></Link>
@@ -258,12 +260,12 @@ return (
       <Route path="/signup" element={ signedUp ? <Signin login={loginHandler} warning={warning} /> : <Signup register={registerHandler} /> }></Route>
       <Route path="/signin" element={ isAuth ? <Dashboard userData={userData} /> : <Signin login={loginHandler} /> }></Route>
 
-      <Route path="/" element={ isAuth ? <><Dashboard userData={userData} /> </> : <Leaflet /> }></Route>
-      <Route path="/map" element={ isAuth ? <Leaflet /> : <Signin login={loginHandler} warning={warning} /> }></Route>
+      <Route path="/" element={ isAuth ? <><Dashboard userData={userData} /> </> : <Attempt /> }></Route>
+      <Route path="/map" element={ isAuth ? <Attempt /> : <Signin login={loginHandler} warning={warning} /> }></Route>
       <Route path="/species" element={ isAuth && userData.userType<=2 ? <SpeciesList /> : <Access /> }></Route>
-      <Route path="/record" element={ isAuth ? <RecordList isCreateRecord={isCreateRecord} setIsCreateRecord={setIsCreateRecord} isEditRecord={isEditRecord} setIsEditRecord={setIsEditRecord} /> : <Signin login={loginHandler} warning={warning} /> }></Route>
-      <Route path="/profile" element={ isAuth && isEdit? <Profile user={userData} updateUserProfile={updateUserProfile} isEdit={setIsEdit} /> : <Access /> }></Route>
-      <Route path="/user" element={ isAuth && userData.userType==1 ? <AdminUserList /> : <Access /> }></Route>
+      <Route path="/record" element={ isAuth ? <RecordList userID={userData._id} isCreateRecord={isCreateRecord} setIsCreateRecord={setIsCreateRecord} isEditRecord={isEditRecord} setIsEditRecord={setIsEditRecord} /> : <Signin login={loginHandler} warning={warning} /> }></Route>
+      <Route path="/profile" element={ isAuth && isEdit? <Profile user={userData} updateUserProfile={updateUserProfile} setIsEdit={setIsEdit} /> : <Access /> }></Route>
+      <Route path="/user" element={ isAuth && userData.userType==1 ? <AdminUserList setIsUserEdit={setIsUserEdit} isUserEdit={isUserEdit} /> : <Access /> }></Route>
 
     </Routes>
 </main>

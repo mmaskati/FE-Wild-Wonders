@@ -58,7 +58,7 @@ return (
 
         <div className="mb-3 pb-1">
             <label htmlFor="locationLatitude" className="form-label">Location Latitude :</label>
-            <input type="text"value={newRecordList.locationLatitude}  className="form-control" id="" name="locationLatitude" onChange={handleChange}></input>
+            <input type="text"value={newRecordList.locationLatitude}  className="form-control" id="locationLatitude" name="locationLatitude" onChange={handleChange}></input>
         </div>
 
 
