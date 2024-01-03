@@ -43,6 +43,8 @@ const [userType, setUserType] = useState(0);
 const [warning, setWarning] = useState('');
 
 // const resetValue=false;
+const [isCreateSpecies, setIsCreateSpecies] = useState(false);
+const [isEditSpecies, setIsEditSpecies] = useState(false); 
 const [isCreateRecord, setIsCreateRecord] = useState(false); //this is used for Edit
 const [isEditRecord, setIsEditRecord] = useState(false);
 const [isUserEdit, setIsUserEdit] = useState(false);
@@ -208,7 +210,7 @@ return (
                       
                </> : <></> }
             
-            { userData.userType <= 2 ? <Link to="/species" className="btn btn-success me-2">Species</Link> : <></> }
+            { userData.userType <= 2 ? <Link to="/species" onClick={ () => {setIsCreateSpecies(false); setIsEditSpecies(false)}} className="btn btn-success me-2">Species</Link> : <></> }
             
             { userData.userType == 1 ? <>
               <Link to="/map" className="btn btn-primary me-2">Map</Link> 
@@ -262,7 +264,7 @@ return (
 
       <Route path="/" element={ isAuth ? <><Dashboard userData={userData} /> </> : <Attempt /> }></Route>
       <Route path="/map" element={ isAuth ? <Attempt /> : <Signin login={loginHandler} warning={warning} /> }></Route>
-      <Route path="/species" element={ isAuth && userData.userType<=2 ? <SpeciesList /> : <Access /> }></Route>
+      <Route path="/species" element={ isAuth && userData.userType<=2 ? <SpeciesList userID={userData._id} isCreateSpecies={isCreateSpecies} setIsCreateSpecies={setIsCreateSpecies} isEditSpecies={isEditSpecies} setIsEditSpecies={setIsEditSpecies} /> : <Access /> }></Route>
       <Route path="/record" element={ isAuth ? <RecordList userID={userData._id} isCreateRecord={isCreateRecord} setIsCreateRecord={setIsCreateRecord} isEditRecord={isEditRecord} setIsEditRecord={setIsEditRecord} /> : <Signin login={loginHandler} warning={warning} /> }></Route>
       <Route path="/profile" element={ isAuth && isEdit? <Profile user={userData} updateUserProfile={updateUserProfile} setIsEdit={setIsEdit} /> : <Access /> }></Route>
       <Route path="/user" element={ isAuth && userData.userType==1 ? <AdminUserList setIsUserEdit={setIsUserEdit} isUserEdit={isUserEdit} /> : <Access /> }></Route>

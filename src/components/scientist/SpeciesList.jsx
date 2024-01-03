@@ -13,9 +13,9 @@ import { InputText } from "primereact/inputtext";
 // import "primereact/resources/primereact.min.css";
 // import "primeicons/primeicons.css";
 
-export default function SpeciesList() {
+export default function SpeciesList(props) {
 
-const [globalFilter, setGlobalFilter] = useState(null);
+const [globalFilter, setGlobalFilter] = useState();
 
 const header = (
     <div className="table-header">
@@ -29,7 +29,7 @@ const header = (
 );
 
 const [species, setSpecies] = useState([]); //this is used for Create
-const [isEdit, setIsEdit] = useState(false); //this is used for Edit
+// const [props.isEditSpeciesSpecies, props.setIsEditSpeciesSpecies] = useState(false); //this is used for Edit
 const [currentSpecies, setCurrentSpecies] = useState({}); //this is used to set the content for the Edit form
 
 const passToken = { headers: { "Authorization": "Bearer " + localStorage.getItem("token")}};
@@ -74,7 +74,7 @@ Axios.get(`species/edit?id=${id}`, passToken)
     // console.log("Loaded Species Information");
     // console.log(res.data.specie);
     let specie = res.data.species;
-    setIsEdit(true);
+    props.setIsEditSpecies(true);
     setCurrentSpecies(specie);
 })
 .catch((error) => {
@@ -90,7 +90,7 @@ Axios.post("species/update",species, passToken)
     console.log("Species Updated Successfully!");
     console.log(res);
     loadSpeciesList();
-    setIsEdit(false); //reset to hide the form again
+    props.setIsEditSpecies(false); //reset to hide the form again
 })
 .catch((error) => {
     console.log("Error Updating Species Information: ");
@@ -139,10 +139,21 @@ return (
 
 {/* <SpeciesCreateForm addSpecies={addSpecies} /> */}
 
-    {(isEdit) ? 
-        <SpeciesEditForm key={currentSpecies._id} specie={currentSpecies} updateSpecies={updateSpecies} isEdit={setIsEdit} /> 
+{(props.isCreateSpecies) ? 
+    <>
+        <SpeciesCreateForm userID={props.userID} passToken={passToken} addSpecies={addSpecies} isCreateSpecies={props.isCreateSpecies} setIsCreateSpecies={props.setIsCreateSpecies} />
+    </>
+    :
+
+    (props.isEditSpecies) ? 
+        <>
+            <SpeciesEditForm key={currentSpecies._id} specie={currentSpecies} updateSpecies={updateSpecies} isEditSpecies={props.setIsEditSpecies} /> 
+        </>
         : 
     <>   
+    <button onClick={() => props.setIsCreateSpecies(true)} className="btn btn-success">Add Species</button>
+    <br />
+    <br />
     <h5> Species List</h5>
     <table className="table">
     <tbody>
@@ -169,8 +180,8 @@ return (
                 showGridlines
                 removableSort
                 globalFilter={globalFilter}
-                header={header}
-            >
+                header={header}>
+
                 <Column field="name" sortable header="Name"></Column>
                 <Column field="characteristics.common_name" sortable header="Common Name"></Column>
                 <Column field="characteristics.speciestype" sortable header="Type"></Column>
@@ -179,13 +190,14 @@ return (
                 <Column field="characteristics.color" sortable header="Color"></Column>
                 <Column field="characteristics.location" sortable header="Location"></Column>
             </DataTable>
-
-</>
+        </>
 }
+
 </div>
 
 
 </>
+
 )
 
 }
