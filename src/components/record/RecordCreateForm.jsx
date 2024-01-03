@@ -3,6 +3,8 @@ import Axios from 'axios';
 
 import EXIF from 'exif-js';
 
+import ImageUpload from '../../components/page/ImageUpload';
+
 export default function RecordCreateForm(props) {
 
 // const RecordForm = () => {
@@ -312,18 +314,19 @@ const handleImageChange = (e) => {
         </div>
             
             <div className="mb-3">
-                <label htmlFor="image" className="form-label"> Upload Image:</label>
-                <input type="file" name="image" id="image" className="form-control" accept="image/*" onChange={handleImageChange} required />
+                {/* <label htmlFor="image" className="form-label"> Upload Image:</label>
+                <input type="file" name="image" id="image" className="form-control" accept="image/*" onChange={handleImageChange} required /> */}
+                <ImageUpload></ImageUpload>
               </div>
 
-              <div className="mb-3">
+              {/* <div className="mb-3">
                 <label className="form-label">Preview Image:</label>
                 <div className="imagesized" >
                 {formData.image && (
                   <img src={URL.createObjectURL(formData.image)} alt="Preview" className="img-fluid" />
                 )}
                 </div>
-              </div>
+              </div> */}
 
             <div>
                 {selectSpecies}<br />

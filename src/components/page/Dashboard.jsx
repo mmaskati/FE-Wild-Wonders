@@ -7,7 +7,7 @@ import AdminUserList from '../../components/admin/UserList';
 
 import RecordList from '../../components/record/RecordList';
 
-import ImageUpload from '../../components/page/ImageUpload';
+
 
 
 export default function Dashboard(props) {
@@ -38,7 +38,7 @@ export default function Dashboard(props) {
 
     {/* { props.isAuth && props.userData.userType==3 ? <> <RecordList /> </> : <span></span> } */}
     {/* { isAuth && userData.userType==1 ? <AdminUserList /> : <Signin login={loginHandler} warning={warning} /> } */}
-    <ImageUpload></ImageUpload>
+    
 
 </div>
 </>
