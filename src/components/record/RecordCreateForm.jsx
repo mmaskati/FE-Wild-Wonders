@@ -103,7 +103,7 @@ Axios.get(`species/detail?id=${id}`, props.passToken)
 
 })
 .catch((error) => {
-    console.log("Error loading Recipe Information: ");
+    console.log("Error loading Species Information: ");
     console.log(error);
 })
 }

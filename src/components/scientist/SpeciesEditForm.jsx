@@ -16,7 +16,7 @@ const handleChangeSpecies = (event) => {
 
   const updatedSpecie = {...specie};
   updatedSpecie[attributeToChange] = editValue;
-  console.log(updatedSpecie);
+  //console.log(updatedSpecie);
   setEditSpecie(updatedSpecie);
 }
 

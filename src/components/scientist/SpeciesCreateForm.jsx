@@ -38,7 +38,7 @@ const handleSearchSubmit = (event) => {
 
   setSearchAllResults("");
 
-  console.log("searchValue",event.target.elements.searchValue.value)
+  // console.log("searchValue",event.target.elements.searchValue.value)
   const searchValue = event.target.elements.searchValue.value;
   searchedFor(searchValue);
 };
@@ -62,13 +62,72 @@ function searchedFor(searched) {
     });
 }
 
+const [newValue , setNewValue] = useState({});
+
+const handleChangeFields = (fieldName, fieldValue) => { 
+  const inputMapping = {
+    attribute1: 'name',
+    attribute2: 'common_name',
+    attribute3: 'speciestype',
+    attribute4: 'color',
+    attribute5: 'weight',
+    attribute6: 'length',
+    attribute7: 'location',
+    attribute8: 'distinctive_feature',
+    attribute9: 'habitat',
+    attribute10: 'predators',
+    attribute11: 'favorite_food',
+    attribute12: 'main_prey',
+    attribute13: 'slogan',
+    attribute14: 'lifestyle',
+    attribute15: 'skin_type',
+    attribute16: 'top_speed',
+    attribute17: 'lifespan'
+  };
+  
+  const updatedValue = inputMapping[fieldName] || fieldValue;
+
+  const value = { ...newValue };
+  value[fieldName] = updatedValue;
+  console.log(inputMapping[fieldName] + " : " + fieldValue);
+
+
+
+  setNewValue(value);
+}
+
+//this function will allow to populate the API fields to the input field sin the form
 function populateFields(selectedButton){
+console.log(selectedButton);
+
+handleChangeFields('attribute1', selectedButton.name);
+handleChangeFields('attribute2', selectedButton.characteristics.common_name);
+handleChangeFields('attribute3', selectedButton.characteristics.diet); //type
+handleChangeFields('attribute4', selectedButton.characteristics.color);
+handleChangeFields('attribute5', selectedButton.characteristics.weight);
+handleChangeFields('attribute6', selectedButton.characteristics.length);
+handleChangeFields('attribute7', selectedButton.characteristics.locations);
+handleChangeFields('attribute8', selectedButton.characteristics.distinctive_feature);
+handleChangeFields('attribute9', selectedButton.characteristics.habitat);
+handleChangeFields('attribute10', selectedButton.characteristics.predators);
+handleChangeFields('attribute11', selectedButton.characteristics.favorite_food);
+handleChangeFields('attribute12', selectedButton.characteristics.main_prey);
+handleChangeFields('attribute13', selectedButton.characteristics.slogan);
+handleChangeFields('attribute14', selectedButton.characteristics.lifestyle);
+handleChangeFields('attribute15', selectedButton.characteristics.skin_type);
+handleChangeFields('attribute16', selectedButton.characteristics.top_speed);
+handleChangeFields('attribute17', selectedButton.characteristics.lifespan);
 
 }
 
+
+
+//onClick={ () => populateFields(result) }
 const allSearchResults = searchResults.map((result, index) => (
-  <><button className="btn btn-sm btn-primary" onClick={ () => populateFields(result) } key={index}>{result.name}</button><br /></>
+  <><button className="btn btn-sm btn-primary mb-1" onClick={ () => populateFields(result) } key={index}>{result.name}</button><br /></>
 ))
+
+
 
 return (
 <>
@@ -168,14 +227,15 @@ return (
 <div className="col-md-6 col-lg-6">
 
 <div>
+  <code>Search Animal API for options</code>
     <form className="d-flex mb-3" role="search" onSubmit={handleSearchSubmit}>
         <input className="form-control me-2" type="search" id="searchValue" name="searchValue" placeholder="Search for a Species" aria-label="Search" />
         <button  className="btn btn-outline-success" type="submit">Search</button>
     </form>
     <div>
-    <ul>
-      {searchAllResults != null ? searchAllResults : "No data" }
-    </ul>
+
+      {allSearchResults != null ? allSearchResults : "No data" }
+
 
     </div>
 </div>
