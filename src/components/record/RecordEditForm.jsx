@@ -140,7 +140,9 @@ const handleSubmitSpecies = (event) => {
                 {/* <div className="mb-3">
                     <label htmlFor="quantity" className="form-label">Quantity :</label>
                     <input type="text" className='form-control' id="quantity" name="quantity" value={record.quantity} onChange={handleChangeRecord} required readonly/>
-                </div> */}
+ 
+ 
+              </div> */}
         </div>
             <div className="mb-3">
                 <label htmlFor="notes" className="form-label">Note(s)</label>
@@ -151,6 +153,8 @@ const handleSubmitSpecies = (event) => {
                 <input className='btn btn-warning' type="submit" value="Update Record" />
             </div>
       </form>
+ 
+ 
         </div>
       <div className="col-md-6 col-lg-6">
         <div>
