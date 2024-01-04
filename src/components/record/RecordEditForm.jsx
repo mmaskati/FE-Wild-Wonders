@@ -94,6 +94,7 @@ const handleSubmitSpecies = (event) => {
 //     } // Don't do anything for N or E
 //     return dd;
 // }
+
   return (
     <div className="container py-1 mb-5">
       <h4><FontAwesomeIcon icon="pencil" /> Update Record for sighted (<span className="text-primary">{props.record.species.name}</span>)</h4>
