@@ -75,7 +75,6 @@ Contributor: Add Records (also known as contributions) with one photo JPEG that 
 
 ## FrameWorks 
 
-![7](https://res.cloudinary.com/dg7fvab8r/image/upload/v1704297367/Untitled_7_yogzf3.png)
 ![6](https://res.cloudinary.com/dg7fvab8r/image/upload/v1704297945/Untitled_pjnwzp.png)
 ![5](https://res.cloudinary.com/dg7fvab8r/image/upload/v1704297947/Untitled_6_qim8t6.png)
 ![4](https://res.cloudinary.com/dg7fvab8r/image/upload/v1704297947/Untitled_5_bu2ymh.png)
