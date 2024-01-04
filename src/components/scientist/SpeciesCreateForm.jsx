@@ -54,7 +54,7 @@ function searchedFor(searched) {
   fetch(url, options)
     .then((res) => res.json())
     .then((data) => {
-      console.log(data); //data from API
+      //console.log(data); //data from API
       setSearchResults(data); // Update searchResults state
     })
     .catch((error) => {
@@ -89,34 +89,57 @@ const handleChangeFields = (fieldName, fieldValue) => {
 
   const value = { ...newValue };
   value[fieldName] = updatedValue;
-  console.log(inputMapping[fieldName] + " : " + fieldValue);
-
-
+  //console.log(inputMapping[fieldName] + " : " + fieldValue);
 
   setNewValue(value);
 }
 
 //this function will allow to populate the API fields to the input field sin the form
 function populateFields(selectedButton){
-console.log(selectedButton);
+//console.log(selectedButton);
 
-handleChangeFields('attribute1', selectedButton.name);
-handleChangeFields('attribute2', selectedButton.characteristics.common_name);
-handleChangeFields('attribute3', selectedButton.characteristics.diet); //type
-handleChangeFields('attribute4', selectedButton.characteristics.color);
-handleChangeFields('attribute5', selectedButton.characteristics.weight);
-handleChangeFields('attribute6', selectedButton.characteristics.length);
-handleChangeFields('attribute7', selectedButton.characteristics.locations);
-handleChangeFields('attribute8', selectedButton.characteristics.distinctive_feature);
-handleChangeFields('attribute9', selectedButton.characteristics.habitat);
-handleChangeFields('attribute10', selectedButton.characteristics.predators);
-handleChangeFields('attribute11', selectedButton.characteristics.favorite_food);
-handleChangeFields('attribute12', selectedButton.characteristics.main_prey);
-handleChangeFields('attribute13', selectedButton.characteristics.slogan);
-handleChangeFields('attribute14', selectedButton.characteristics.lifestyle);
-handleChangeFields('attribute15', selectedButton.characteristics.skin_type);
-handleChangeFields('attribute16', selectedButton.characteristics.top_speed);
-handleChangeFields('attribute17', selectedButton.characteristics.lifespan);
+// handleChangeFields('attribute1', selectedButton.name);
+// handleChangeFields('attribute2', selectedButton.characteristics.common_name);
+// handleChangeFields('attribute3', selectedButton.characteristics.diet); //type
+// handleChangeFields('attribute4', selectedButton.characteristics.color);
+// handleChangeFields('attribute5', selectedButton.characteristics.weight);
+// handleChangeFields('attribute6', selectedButton.characteristics.length);
+// handleChangeFields('attribute7', selectedButton.characteristics.locations);
+// handleChangeFields('attribute8', selectedButton.characteristics.distinctive_feature);
+// handleChangeFields('attribute9', selectedButton.characteristics.habitat);
+// handleChangeFields('attribute10', selectedButton.characteristics.predators);
+// handleChangeFields('attribute11', selectedButton.characteristics.favorite_food);
+// handleChangeFields('attribute12', selectedButton.characteristics.main_prey);
+// handleChangeFields('attribute13', selectedButton.characteristics.slogan);
+// handleChangeFields('attribute14', selectedButton.characteristics.lifestyle);
+// handleChangeFields('attribute15', selectedButton.characteristics.skin_type);
+// handleChangeFields('attribute16', selectedButton.characteristics.top_speed);
+// handleChangeFields('attribute17', selectedButton.characteristics.lifespan);
+
+const specie = {...newSpecies};
+
+specie['name'] = selectedButton.name;
+specie['common_name'] = selectedButton.characteristics.common_name;
+specie['diet'] = selectedButton.characteristics.diet; 
+specie['color'] = selectedButton.characteristics.color;
+specie['weight'] = selectedButton.characteristics.weight;
+specie['length'] = selectedButton.characteristics.length;
+specie['locations'] = selectedButton.characteristics.locations;
+specie['distinctive_feature'] = selectedButton.characteristics.distinctive_feature;
+specie['habitat'] = selectedButton.characteristics.habitat;
+specie['predators'] = selectedButton.characteristics.predators;
+specie['favorite_food'] = selectedButton.characteristics.favorite_food;
+specie['main_prey'] = selectedButton.characteristics.main_prey;
+specie['slogan'] = selectedButton.characteristics.slogan;
+specie['lifestyle'] = selectedButton.characteristics.lifestyle;
+specie['skin_type'] = selectedButton.characteristics.skin_type;
+specie['top_speed'] = selectedButton.characteristics.top_speed;
+specie['lifespan'] = selectedButton.characteristics.lifespan;
+
+console.log(specie);
+setnewSpecies(specie);
+
+
 
 }
 
@@ -141,12 +164,12 @@ return (
 <form onSubmit={handleSubmitSpecies} autoComplete="off">
   <div className="input-group input-group-sm mb-3">
     <span htmlFor="name" className="input-group-text bg-warning text-dark">Species Name</span>
-    <input className="form-control" id="name" name="name" type="text" onChange={handleChangeSpecies} required />
+    <input className="form-control" id="name" name="name" value={newSpecies.name} type="text" onChange={handleChangeSpecies} required />
   </div>
 
   <div className="input-group input-group-sm mb-3">
     <span htmlFor="common_name" className="input-group-text bg-warning text-dark">Common Name</span>
-    <input className="form-control" id="common_name" name="common_name" type="text" onChange={handleChangeSpecies} required />
+    <input className="form-control" id="common_name" name="common_name" value={newSpecies.common_name} type="text" onChange={handleChangeSpecies} required />
   </div>
 
 <br />
@@ -154,63 +177,63 @@ return (
 
 <div className="input-group input-group-sm mb-3">
   <span htmlFor="speciestype" className="input-group-text bg-warning text-dark">Species Type</span>
-    <input className="form-control" id="speciestype" name="speciestype" type="text" onChange={handleChangeSpecies} required />
+    <input className="form-control" id="speciestype" name="speciestype" value={newSpecies.speciestype} type="text" onChange={handleChangeSpecies} required />
   </div>
   <div className="input-group input-group-sm mb-3">
   <span htmlFor="color" className="input-group-text bg-success">Color(s)</span>
-    <input className="form-control" id="color" name="color" type="text" onChange={handleChangeSpecies} />
+    <input className="form-control" id="color" name="color" type="text" value={newSpecies.color} onChange={handleChangeSpecies} />
   </div>
   <div className="input-group input-group-sm mb-3">
   <span htmlFor="weight" className="input-group-text bg-success">Known Weight(s)</span>
-    <input className="form-control" id="weight" name="weight" type="text" onChange={handleChangeSpecies} />
+    <input className="form-control" id="weight" name="weight" type="text" value={newSpecies.weight} onChange={handleChangeSpecies} />
   </div>
   <div className="input-group input-group-sm mb-3">
   <span htmlFor="length" className="input-group-text bg-success">Known Length(s)</span>
-    <input className="form-control" id="length" name="length" type="text" onChange={handleChangeSpecies} />
+    <input className="form-control" id="length" name="length" value={newSpecies.length} type="text" onChange={handleChangeSpecies} />
   </div>
   <div className="input-group input-group-sm mb-3">
   <span htmlFor="location" className="input-group-text bg-warning text-dark">Known Location(s)</span>
-    <input className="form-control" id="location" name="location" type="text" onChange={handleChangeSpecies} required />
+    <input className="form-control" id="location" name="location" value={newSpecies.locations} type="text" onChange={handleChangeSpecies} required />
   </div>
   <div className="input-group input-group-sm mb-3">
   <span htmlFor="distinctive_feature" className="input-group-text bg-success">Distinctive Feature(s)</span>
-    <input className="form-control" id="distinctive_feature" name="distinctive_feature" type="text" onChange={handleChangeSpecies} />
+    <input className="form-control" id="distinctive_feature" name="distinctive_feature" value={newSpecies.distinctive_feature} type="text" onChange={handleChangeSpecies} />
   </div>
   <div className="input-group input-group-sm mb-3">
   <span htmlFor="distinctive_feature" className="input-group-text bg-success">Habitat</span>
-    <input className="form-control" id="habitat" name="habitat" type="text" onChange={handleChangeSpecies} />
+    <input className="form-control" id="habitat" name="habitat" type="text" value={newSpecies.habitat} onChange={handleChangeSpecies} />
   </div>
   <div className="input-group input-group-sm mb-3">
   <span htmlFor="predators" className="input-group-text bg-success">Predators</span>
-    <input className="form-control" id="predators" name="predators" type="text" onChange={handleChangeSpecies} />
+    <input className="form-control" id="predators" name="predators" type="text" value={newSpecies.predators} onChange={handleChangeSpecies} />
   </div>
   <div className="input-group input-group-sm mb-3">
   <span htmlFor="favorite_food" className="input-group-text bg-success">Favorite Food</span>
-    <input className="form-control" id="favorite_food" name="favorite_food" type="text" onChange={handleChangeSpecies} />
+    <input className="form-control" id="favorite_food" name="favorite_food" type="text" value={newSpecies.favorite_food} onChange={handleChangeSpecies} />
   </div>
   <div className="input-group input-group-sm mb-3">
   <span htmlFor="main_prey" className="input-group-text bg-success">Main Pray</span>
-    <input className="form-control" id="main_prey" name="main_prey" type="text" onChange={handleChangeSpecies} />
+    <input className="form-control" id="main_prey" name="main_prey" value={newSpecies.main_prey} type="text" onChange={handleChangeSpecies} />
   </div>
   <div className="input-group input-group-sm mb-3">
   <span htmlFor="main_prsloganey" className="input-group-text bg-success">Slogan</span>
-    <input className="form-control" id="slogan" name="slogan" type="text" onChange={handleChangeSpecies} />
+    <input className="form-control" id="slogan" name="slogan" type="text" value={newSpecies.slogan} onChange={handleChangeSpecies} />
   </div>
   <div className="input-group input-group-sm mb-3">
   <span htmlFor="lifestyle" className="input-group-text bg-success">Life Style</span>
-    <input className="form-control" id="lifestyle" name="lifestyle" type="text" onChange={handleChangeSpecies} />
+    <input className="form-control" id="lifestyle" name="lifestyle" type="text" value={newSpecies.lifestyle} onChange={handleChangeSpecies} />
   </div>
   <div className="input-group input-group-sm mb-3">
   <span htmlFor="skin_type" className="input-group-text bg-success">Skin Type</span>
-    <input className="form-control" id="skin_type" name="skin_type" type="text" onChange={handleChangeSpecies} />
+    <input className="form-control" id="skin_type" name="skin_type" type="text" value={newSpecies.skin_type} onChange={handleChangeSpecies} />
   </div>
   <div className="input-group input-group-sm mb-3">
   <span htmlFor="top_speed" className="input-group-text bg-success">Top Speed</span>
-    <input className="form-control" id="top_speed" name="top_speed" type="text" onChange={handleChangeSpecies} />
+    <input className="form-control" id="top_speed" name="top_speed" type="text" value={newSpecies.top_speed} onChange={handleChangeSpecies} />
   </div>
   <div className="input-group input-group-sm mb-3">
   <span htmlFor="lifespan" className="input-group-text bg-success">Life Span</span>
-    <input className="form-control" id="lifespan" name="lifespan" type="text" onChange={handleChangeSpecies} />
+    <input className="form-control" id="lifespan" name="lifespan" type="text" value={newSpecies.lifespan} onChange={handleChangeSpecies} />
   </div>
   <div className="input-group input-group-sm mb-3">
     <span htmlFor="notes" className="input-group-text bg-warning text-dark"> Notes</span>
