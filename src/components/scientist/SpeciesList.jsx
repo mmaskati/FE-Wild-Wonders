@@ -6,27 +6,28 @@ import Species from './Species';
 import SpeciesCreateForm from './SpeciesCreateForm';
 import SpeciesEditForm from './SpeciesEditForm';
 
-// import { DataTable } from 'primereact/datatable';
-// import { Column } from 'primereact/column';
-// import { InputText } from "primereact/inputtext";
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+import { InputText } from "primereact/inputtext";
 // import "primereact/resources/themes/saga-blue/theme.css";
 // import "primereact/resources/primereact.min.css";
 // import "primeicons/primeicons.css";
 
 export default function SpeciesList(props) {
 
-// const [globalFilter, setGlobalFilter] = useState(null);
+const [globalFilter, setGlobalFilter] = useState(null);
 
-// const header = (
-//     <div className="table-header">
-//         <h5>Species List</h5>
-//         <InputText
-//             type="search"
-//             onInput={(e) => setGlobalFilter(e.target.value)}
-//             placeholder="Search"
-//         />
-//     </div>
-// );
+const header = (
+    <div className="table-header">
+        <h5>Species List Example using DataTables</h5>
+        <code>Search disabled for now </code>
+        <InputText
+            type="search"
+            onInput={(e) => setGlobalFilter(e.target.value)}
+            placeholder="Search"
+        />
+    </div>
+);
 
 const [species, setSpecies] = useState([]); //this is used for Create
 // const [isEditSpecies, setIsEditSpecies] = useState(false); //this is used for Edit
@@ -154,8 +155,8 @@ return (
     <button onClick={() => props.setIsCreateSpecies(true)} className="btn btn-success">Add Species</button>
     <br />
     <br />
-    <h5> Species List</h5>
-    <table className="table">
+    <h5>Species List</h5>
+    <table className="table table-striped">
     <tbody>
         <tr className="table-success">
             <th>No.</th>
@@ -171,25 +172,26 @@ return (
             { allSpecies != null ? allSpecies : "No data" }
         </tbody>
     </table>
-
-    {/* <DataTable
-                className="table table-striped"
+<br />
+<br />
+    <DataTable
+                // className="table"
                 value={speciesArray}
                 paginator
                 rows={10}
                 showGridlines
                 removableSort
-                globalFilter={globalFilter}
+                // globalFilter={globalFilter}
                 header={header}>
 
                 <Column field="name" sortable header="Name"></Column>
-                <Column field="characteristics.common_name" sortable header="Common Name"></Column>
-                <Column field="characteristics.speciestype" sortable header="Type"></Column>
-                <Column field="characteristics.weight" sortable header="Weight"></Column>
-                <Column field="characteristics.length" sortable header="Length"></Column>
-                <Column field="characteristics.color" sortable header="Color"></Column>
-                <Column field="characteristics.location" sortable header="Location"></Column>
-            </DataTable> */}
+                <Column field="common_name" sortable header="Common Name"></Column>
+                <Column field="speciestype" sortable header="Type"></Column>
+                <Column field="weight" sortable header="Weight"></Column>
+                <Column field="length" sortable header="Length"></Column>
+                <Column field="color" sortable header="Color"></Column>
+                <Column field="location" sortable header="Location"></Column>
+            </DataTable>
         </>
 }
 

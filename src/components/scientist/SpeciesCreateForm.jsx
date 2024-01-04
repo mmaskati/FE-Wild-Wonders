@@ -31,6 +31,8 @@ const handleSubmitSpecies = (event) => {
 
     props.addSpecies(specie);
     event.target.reset(); //clear the form
+    
+    props.setIsCreateSpecies(false);
 }
 
 const handleSearchSubmit = (event) => {
@@ -41,6 +43,7 @@ const handleSearchSubmit = (event) => {
   // console.log("searchValue",event.target.elements.searchValue.value)
   const searchValue = event.target.elements.searchValue.value;
   searchedFor(searchValue);
+  
 };
 
 function searchedFor(searched) {

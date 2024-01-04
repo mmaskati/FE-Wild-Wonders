@@ -107,7 +107,7 @@ const allRecord = records.map((record, index) => (
         <Record {...record} index={index+1} editView={editView} deleteRecord={deleteRecord} isEditRecord={props.isEditRecord} setIsEditRecord={props.setIsEditRecord} />
     </>
     :
-    <><br /><p className="text-white">  End of Contribution List</p></>
+    <></>
     ) : 
     <> 
         <Record {...record} index={index+1} editView={editView} deleteRecord={deleteRecord} isEditRecord={props.isEditRecord} setIsEditRecord={props.setIsEditRecord} />
