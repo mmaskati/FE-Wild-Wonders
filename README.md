@@ -56,27 +56,22 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - React-router-dom
 - Dayjs
 - Font Awesome for React.js
-- PrimeReact
+- PrimeReact (attempting to use DataTable UI component)
 - Exif.js
 - Cloudinary
 - Cloudinary-react
 - dotenv
 
-## To Run the Web App:
+## Integrations to fetch external data:
 
-### `npm start`
+Ninja Animal API
+[https://api-ninjas.com/api/animals](https://api-ninjas.com/api/animals)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Exisiting Features:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Administrator: See All Users and Change Type
+Scientist: Add Species and Content from Animal API
+Contributor: Add Records (also known as contributions) with one photo JPEG that includes GPS Exif data.
 
 ## FrameWorks 
 
