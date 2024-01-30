@@ -53,8 +53,6 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://be-wild-wonder.onrender.com",
-  "homepage": "",
   "description": "Wild Wonders - Sightseers meet Scientists (Frontend)",
   "main": "index.js",
   "author": "",
