@@ -54,7 +54,7 @@ const Leaflet = () => {
                 {/* Pass the markers array directly */}
                 <MarkerCluster markers={markers} />
             </MapContainer>
-            <p className="text-white">Some text goes here</p>
+{/*             <p className="text-white">Some text goes here</p> */}
         </>
     );
 };
