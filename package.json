@@ -53,7 +53,6 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://sea-lion-app-v4wgq.ondigitalocean.app:8080",
   "description": "Wild Wonders - Sightseers meet Scientists (Frontend)",
   "main": "index.js",
   "author": "",
