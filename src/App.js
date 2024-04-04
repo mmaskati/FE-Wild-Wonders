@@ -197,7 +197,7 @@ return (
 <nav className="container-fluid p-0">
     <header className="p-3 text-bg-dark">
       <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-      <img className="me-3" src="./logo.PNG" alt="" width="48" height="38"/>
+      <img className="me-3" src="./logo.PNG" alt="" width="50px" height="50px"/>
 
         <a href="/" className="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
            <span className="fs-2">Wild Wonders</span>
@@ -219,7 +219,7 @@ return (
               <Link to="/user" onClick={ () => { setIsUserEdit(false) }} className="btn btn-bd-primary me-2">Users</Link></>
              : <></> }
             
-            <Link to="/profile" className="profile_img btn me-2" onClick={() => { editView(userData._id) }}><img className="img_profile" src="./logo512.png" referrerPolicy="no-referrer" alt="Profile Photo" height="35px" /></Link>
+            <Link to="/profile" className="profile_img btn me-2" onClick={() => { editView(userData._id) }}><img className="img_profile" src="./favicon-mmt.png" referrerPolicy="no-referrer" alt="Profile Photo" height="35px" /></Link>
             <Link to="/logout" className="btn btn-outline-danger" onClick={onLogoutHandler}>Logout</Link>
           </>
           :

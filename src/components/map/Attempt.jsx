@@ -8,7 +8,7 @@ import L from 'leaflet';
 
 const Leaflet = () => {
     const [markers, setMarkers] = useState([]);
-    const position = [26.25, 50.50];
+    const position = [12.50, 8.25]; //[26.25, 50.50] Bahrain
     const mapStyle = { height: "80vh" };
 
     useEffect(() => {
@@ -46,7 +46,7 @@ const Leaflet = () => {
 
     return (
         <>
-            <MapContainer center={position} zoom={6} style={mapStyle} maxZoom={20}>
+            <MapContainer center={position} zoom={3} style={mapStyle} maxZoom={20}>
                 <TileLayer
                     url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

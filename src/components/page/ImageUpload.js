@@ -7,7 +7,7 @@ const ImageUpload = (props) => {
   const [loading, setLoading] = useState(false);
   const [preview, setPreview] = useState(null);
 // console.log( process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET);
-console.log(process.env.REACT_APP_CLOUDINARY_CLOUD_NAME);
+//console.log(process.env.REACT_APP_CLOUDINARY_CLOUD_NAME);
   const uploadImage = async () => {
     setLoading(true);
     const data = new FormData();
@@ -30,6 +30,7 @@ console.log(process.env.REACT_APP_CLOUDINARY_CLOUD_NAME);
       const res = await response.json();
       // props.setUrl(res.public_id);
 
+      console.log(res);
       console.log("Original Image URL: " + res.secure_url);
       props.setUrl(res.secure_url);
       
@@ -60,12 +61,12 @@ console.log(process.env.REACT_APP_CLOUDINARY_CLOUD_NAME);
   return (
     <>
       <div className="mb-3">
-      <label htmlFor="locationLongitude" className="form-label">{loading ? "Loading ... " : "Upload Image" } <code>(Must include Coordinates)</code></label>
+      <label htmlFor="locationLongitude" className="form-label">{loading ? "Loading ... " : "Select Image to Upload" } <code>(Must include Coordinates)</code></label>
         <div className="input-group mb-3">
         {/* <label htmlFor="imageP" className="input-group-text">{loading ? "Loading ... " : "Upload Image" }</label> */}
           <input type="file" name="imageP" id="imageP" className="form-control" accept="image/*" onChange={props.handleImageChange} required />
           {/* <label htmlFor="imageP" className="input-group-text" htmlFor="inputGroupFile02">Upload</label> */}
-          <button onClick={uploadImage} className="btn btn-primary" disabled={!props.image}> Upload </button>
+          <button onClick={uploadImage} className="btn btn-danger" disabled={!props.image || props.loading}> Upload </button>
         </div>
 
                 {/* <label htmlFor="imageP" className="form-label"> Upload Image:</label>

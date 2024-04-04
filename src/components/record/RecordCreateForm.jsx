@@ -43,13 +43,14 @@ console.log(error);
 };
 
 const [newRecord , setnewRecord] = useState({});
+const [newValues , setNewValues] = useState({});
 
 const[newLat, setNewLat] = useState("");
 const[newLong, setNewLong] = useState("");
 
 const [image, setImage] = useState(null);
 const [preview, setPreview] = useState(null);
-const [loading, setLoading] = useState(false);
+const [loading, setLoading] = useState("");
 const [url, setUrl] = useState("");
 
 const handleChange = (event) => { 
@@ -95,8 +96,8 @@ const handleSubmit = (event)=>{
 const speciesView = (id) => {
 Axios.get(`species/detail?id=${id}`, props.passToken)
 .then( ( res ) => {
-    console.log("Loaded Species Info");
-    console.log(res.data.species);
+    //console.log("Loaded Species Info");
+    //console.log(res.data.species);
     //let specie = res.data.species;
 
     setSelectedSpeciesInfo(res.data.species);
@@ -114,9 +115,13 @@ const [formData, setFormData] = useState({image: null});
 function ConvertDMSToDD(degrees, minutes, seconds, direction) {
     var dd = degrees + minutes/60 + seconds/(60*60);
 
-    if (direction == "S" || direction == "W") {
+  console.log(typeof direction);
+
+    if (direction === "S" || direction === "W") {
         dd = dd * -1;
+        console.log("Converted >>>>>>> " + dd);
     } // Don't do anything for N or E
+    
     return dd;
 }
 
@@ -129,6 +134,8 @@ const handleImageChange = (e) => {
 
     const LatAttrib = "locationLatitude";
     const LongAttrib = "locationLongitude";
+
+    const coordinates = {...newValues}
 
     const record = {...newRecord};
     record[attributeToChange] = newValue;
@@ -152,27 +159,39 @@ const handleImageChange = (e) => {
             let long = EXIF.getTag(this, "GPSLongitude");
             // console.log("Latitude:" + EXIF.getTag(this, "GPSLatitude"));
             // console.log("Longitude:" + EXIF.getTag(this, "GPSLongitude"));
-
-            //console.log("\nConverting ...\n");
+            let direction = EXIF.getTag(this, "GPSLongitudeRef");
+            console.log("\nDirection ..." + direction);
 
             if(lat){
             //console.log("Latitude:" + parseFloat( ConvertDMSToDD(EXIF.getTag(this, "GPSLatitude")[0],EXIF.getTag(this, "GPSLatitude")[1],EXIF.getTag(this, "GPSLatitude")[2]),"N").toFixed(6) );
-            let parsedlat = parseFloat( ConvertDMSToDD(EXIF.getTag(this, "GPSLatitude")[0],EXIF.getTag(this, "GPSLatitude")[1],EXIF.getTag(this, "GPSLatitude")[2]),"N").toFixed(6);
-            setNewLat(parsedlat);
+            let parsedlat = parseFloat( ConvertDMSToDD(EXIF.getTag(this, "GPSLatitude")[0],EXIF.getTag(this, "GPSLatitude")[1],EXIF.getTag(this, "GPSLatitude")[2],EXIF.getTag(this, "GPSLatitudeRef")).toFixed(6));
+            console.log("Lat: " + parsedlat);
+            //setNewLat(parsedlat);
             //let attributeToChange = {"locationLatitude"};
             record[LatAttrib] = parsedlat;
-            //setnewRecord(record);
+            coordinates[LatAttrib] = parsedlat;
+            setnewRecord(record);
+            setNewValues(coordinates);
             }
             if(long){
             //console.log("Longitude:" + parseFloat( ConvertDMSToDD(EXIF.getTag(this, "GPSLongitude")[0],EXIF.getTag(this, "GPSLongitude")[1],EXIF.getTag(this, "GPSLongitude")[2]),"E").toFixed(6) );
-            let parsedlong = parseFloat( ConvertDMSToDD(EXIF.getTag(this, "GPSLongitude")[0],EXIF.getTag(this, "GPSLongitude")[1],EXIF.getTag(this, "GPSLongitude")[2]),"E").toFixed(6);
-            setNewLong(parsedlong);
+            let parsedlong = parseFloat( ConvertDMSToDD(EXIF.getTag(this, "GPSLongitude")[0],EXIF.getTag(this, "GPSLongitude")[1],EXIF.getTag(this, "GPSLongitude")[2],EXIF.getTag(this, "GPSLongitudeRef")).toFixed(6));
+            console.log("Lng: " + parsedlong);
+            //setNewLong(parsedlong);
             record[LongAttrib] = parsedlong;
-            //setnewRecord(record);
+            coordinates[LongAttrib] = parsedlong;
+            setnewRecord(record);
+            setNewValues(coordinates);
             }
+            //setNewValue(record);
+
+            console.log(record);
+            setLoading("");
 
           } else {
+            setNewValues("");
             console.log("No EXIF data found in image '" + file.name + "'.");
+            setLoading("No EXIF data found in image '" + file.name + "'.")
           }
         });
       }
@@ -217,7 +236,7 @@ const handleImageChange = (e) => {
                 <label htmlFor="species" className="form-label">Species</label>
                 
                 <select id="species" name="species" className="form-select" onChange={handleSpeciesChange} required>
-                <option value="" selected disabled>Select a monitored Species</option>
+                <option value="non" disabled>Select a monitored Species</option>
                 {   
                     species.map( (specie, index) => (
                         <option key={index} value={specie._id}>{specie.name}</option>
@@ -270,27 +289,27 @@ const handleImageChange = (e) => {
             <div className="col-sm-6">
                 <div className="mb-3 pb-1">
                     <label htmlFor="locationLongitude" className="form-label">Longitude</label>
-                    <input type="number" className='form-control' id="locationLongitude" name="locationLongitude" value={newLong} onChange={handleChange} required readOnly/>
+                    <input type="tel" className='form-control' id="locationLongitude" name="locationLongitude" value={newRecord.locationLongitude} onChange={handleChange} required />
                 </div>
             </div>
             <div className="col-sm-6">
                 <div className="mb-3 pb-1">
                     <label htmlFor="locationLatitude" className="form-label">Latitude</label>
-                    <input type="number" className='form-control' id="locationLatitude" name="locationLatitude" value={newLat} onChange={handleChange} required readOnly/>
+                    <input type="tel" className='form-control' id="locationLatitude" name="locationLatitude" value={newRecord.locationLatitude} onChange={handleChange} required />
                 </div>
             </div>
             </div>
 
             <div className="mb-3 pb-1">
                 <button onClick={ () => props.setIsCreateRecord(false) } className="btn btn-secondary me-2">Cancel</button>
-                <input className='btn btn-primary' type="submit" value="Add Record" />
+                <button className='btn btn-primary' type="submit" disabled={!newValues}>Add Record</button>
             </div>
         </form>
         </div>
 
         <div className="col-md-6 col-lg-6">
               
-              <ImageUpload handleImageChange={handleImageChange} image={image} setImage={setImage} url={url} setUrl={setUrl} />
+              <ImageUpload handleImageChange={handleImageChange} image={image} setImage={setImage} url={url} setUrl={setUrl} loading={loading} setLoading={setLoading} />
             <div className="mb-3">
                 {/* <label htmlFor="image" className="form-label"> Upload Image:</label>
                 <input type="file" name="image" id="image" className="form-control" accept="image/*" onChange={handleImageChange} required /> */}
@@ -299,6 +318,7 @@ const handleImageChange = (e) => {
               </div>
 
               <div className="mb-3">
+                {loading}
                 {/* <label className="form-label">Preview Image:</label> */}
                 <div >
                 {/* {formData.image && (
